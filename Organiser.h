@@ -12,6 +12,7 @@ private:
 
 public:
     // Constructor
+    Organiser();
     Organiser(std::string name, short int age, std::string regNO, std::string gender, 
               std::string username, std::string password, std::string email, 
               std::string orgName, std::string title);

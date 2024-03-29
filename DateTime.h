@@ -11,7 +11,7 @@ class DateTime
 
     public:
         DateTime();
-        std :: string displayDate(std :: string format){}
+        std :: string displayDate(std :: string format);
 };
 
 #endif

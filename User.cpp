@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <map>
 
 // class User {
 //     private:
@@ -25,17 +26,34 @@ class User
         std :: string username;
         std :: string password;
         std :: string email;
+        static std :: map<std::string, User*> userMap;
 
     public:
         // Constructor
         User(std :: string name, short int age, std :: string regNO, std :: string gender, 
             std :: string username, std :: string password, std :: string email)
         : name(name), age(age), regNO(regNO), gender(gender), 
-        username(username), password(password), email(email) {}
+        username(username), password(password), email(email) 
+        {
+            userMap[username] = this;
+        }
 
         // Default Constructor
         User() : age(0) {}
 
+        static User* getUserByUsername(const std::string& username) 
+        {
+            if (userMap.find(username) != userMap.end()) 
+            {
+                std :: cout << "User Found";
+                return userMap[username];
+            }
+            else 
+            {
+                std :: cout << "User Not Found";
+                return nullptr;
+            }
+        }
         // Getters and Setters
         void setName(std :: string n) { name = n; }
         std :: string getName() const { return name; }
@@ -53,7 +71,7 @@ class User
         std :: string getUsername() const { return username; }
 
         void setPassword(std :: string p) { password = p; }
-        // Password getter not provided for security reasons
+        std :: string getPassword() const { return password; }
 
         void setEmail(std :: string e) { email = e; }
         std :: string getEmail() const { return email; }

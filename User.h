@@ -22,6 +22,8 @@ public:
     // Default Constructor
     User();
 
+
+    static User* getUserByUsername(const std::string& username);
     // Getters and Setters
     void setName(std::string n);
     std::string getName() const;
@@ -39,6 +41,7 @@ public:
     std::string getUsername() const;
 
     void setPassword(std::string p);
+    std::string getPassword() const;
 
     void setEmail(std::string e);
     std::string getEmail() const;

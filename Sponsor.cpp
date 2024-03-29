@@ -9,6 +9,7 @@ class Sponsor : public User {
         double amount;
     
     public:
+        Sponsor(){};
         Sponsor(std::string name, short int age, std::string regNO, std::string gender, 
         std::string username, std::string password, std::string email, std :: string event, double amt) 
         : User(name, age, regNO, gender, username, password, email),

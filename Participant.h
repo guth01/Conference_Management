@@ -15,6 +15,7 @@ private:
 public:
     // Constructor
     Participant();
+    Participant(const User& user);
 
     // Destructor
     ~Participant();

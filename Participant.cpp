@@ -13,6 +13,11 @@ class Participant: public User
 
     public:
         // Constructor
+        Participant(){};
+        Participant(const User& user) : User(user)
+        {
+            
+        }
         Participant() : conferenceName(""), scheduledDay(""), scheduledTime(""), conferenceScheduled(false)
         {
             std :: cout << "" << std :: endl;
