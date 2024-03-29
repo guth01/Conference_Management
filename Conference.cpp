@@ -6,7 +6,7 @@
 #include "Participant.h"
 #include "Organiser.h"
 #include <map>
-// change
+
 
 class Conference
 {
