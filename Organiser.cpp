@@ -1,61 +1,31 @@
 #include <iostream>
 #include <string>
+#include "User.h"
 
-using namespace std;
-
-class User {
+class Organiser : public User 
+{
     private:
-    string name;
-    string email;
-    
+        std::string organisationName;
+        std::string organiserTitle;
+
     public:
-    User(string name, string email): name(name), email(email) {}
-    
-    void display()
-    {
-        cout << "Name: " << name << ", Email: " << email;
-    }
+        // Constructor
+        Organiser(std::string name, short int age, std::string regNO, std::string gender,
+                std::string username, std::string password, std::string email,
+                std::string orgName, std::string title)
+                : User(name, age, regNO, gender, username, password, email),
+                organisationName(orgName), organiserTitle(title) {}
+
+        // Getters and Setters
+        void setOrganisationName(std::string orgName) { organisationName = orgName; }
+        std::string getOrganisationName() const { return organisationName; }
+
+        void setOrganiserTitle(std::string title) { organiserTitle = title; }
+        std::string getOrganiserTitle() const { return organiserTitle; }
+
+        // Display organiser information
+        void displayOrganiserInfo() const {
+            display(); // Display user information from the base class
+            std::cout << "Organisation Name: " << organisationName << "\nOrganiser Title: " << organiserTitle << std::endl;
+        }
 };
-
-class Sponsor : public User {
-    private:
-    string sponsoredEvent;
-    double amount;
-    
-    public:
-    Sponsor(string name, string email, string event, double amt) : User(name, email),
-    sponsoredEvent(event), amount(amt) {}
-
-    void display()
-    {
-        cout << "Sponsor: ";
-        User::display();
-        cout << ", Event: " << sponsoredEvent << ", Amount: ₹" << amount;
-    }
-    
-};
-
-int main() {
-    string name, email, event;
-    double amount;
-    
-    cout << "Enter sponsor's name: ";
-    getline(cin, name);
-    
-    cout << "Enter sponsor's email: ";
-    getline(cin, email);
-    
-    cout << "Enter sponsored event: ";
-    getline(cin, event);
-    
-    cout << "Enter sponsorship amount: ";
-    cin >> amount;
-
-    Sponsor sponsor1(name, email, event, amount);
-    sponsor1.display();
-    
-    cout << endl;
-
-    return 0;
-    
-}
