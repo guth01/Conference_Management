@@ -25,8 +25,6 @@ class Conference
         static std :: map <std :: string, Conference*> conferenceMap;
         static int no_of_conferences;
 
-
-    public:
     // Constructor
         Conference()
         {
