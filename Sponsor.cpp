@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "User.h"
+#include "User.hpp"
 
 
 class Sponsor : public User {

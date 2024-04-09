@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "User.h"
+#include "User.hpp"
 #include <limits>
 
 class Participant: public User
@@ -13,7 +13,6 @@ class Participant: public User
 
     public:
         // Constructor
-        Participant(){};
         Participant(const User& user) : User(user)
         {
             
@@ -39,6 +38,7 @@ void Participant :: scheduleConference(std :: string name, std :: string day, st
         std :: cout << "There is already a conference scheduled on " << day << " at " << time << ". Please choose another time." << std :: endl;
         return;
     }
+
     // Schedule the conference
     conferenceName = name;
     scheduledDay = day;

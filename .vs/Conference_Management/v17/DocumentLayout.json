@@ -1,0 +1,275 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Venue.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Venue.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Venue.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Venue.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\User.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:User.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\User.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:User.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Sponsor.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sponsor.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Sponsor.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sponsor.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Participant.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Participant.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Participant.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Participant.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Organiser.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Organiser.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Organiser.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Organiser.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\DateTime.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:DateTime.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\DateTime.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:DateTime.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Conference_Management_Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Conference_Management_Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Conference.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Conference.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Conference.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Conference.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Venue.hpp",
+              "DocumentMoniker": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Venue.hpp",
+              "RelativeDocumentMoniker": "Venue.hpp",
+              "ToolTip": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Venue.hpp",
+              "RelativeToolTip": "Venue.hpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-08T14:39:41.03Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Venue.cpp",
+              "DocumentMoniker": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Venue.cpp",
+              "RelativeDocumentMoniker": "Venue.cpp",
+              "ToolTip": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Venue.cpp",
+              "RelativeToolTip": "Venue.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-08T14:39:40.258Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "User.hpp",
+              "DocumentMoniker": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\User.hpp",
+              "RelativeDocumentMoniker": "User.hpp",
+              "ToolTip": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\User.hpp",
+              "RelativeToolTip": "User.hpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-08T14:39:38.504Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "User.cpp",
+              "DocumentMoniker": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\User.cpp",
+              "RelativeDocumentMoniker": "User.cpp",
+              "ToolTip": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\User.cpp",
+              "RelativeToolTip": "User.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-08T14:39:37.536Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Sponsor.hpp",
+              "DocumentMoniker": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Sponsor.hpp",
+              "RelativeDocumentMoniker": "Sponsor.hpp",
+              "ToolTip": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Sponsor.hpp",
+              "RelativeToolTip": "Sponsor.hpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-08T14:39:27.163Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Sponsor.cpp",
+              "DocumentMoniker": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Sponsor.cpp",
+              "RelativeDocumentMoniker": "Sponsor.cpp",
+              "ToolTip": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Sponsor.cpp",
+              "RelativeToolTip": "Sponsor.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-08T14:39:25.828Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Participant.hpp",
+              "DocumentMoniker": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Participant.hpp",
+              "RelativeDocumentMoniker": "Participant.hpp",
+              "ToolTip": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Participant.hpp",
+              "RelativeToolTip": "Participant.hpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-08T14:39:24.302Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Organiser.hpp",
+              "DocumentMoniker": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Organiser.hpp",
+              "RelativeDocumentMoniker": "Organiser.hpp",
+              "ToolTip": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Organiser.hpp",
+              "RelativeToolTip": "Organiser.hpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-08T14:39:19.101Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Participant.cpp",
+              "DocumentMoniker": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Participant.cpp",
+              "RelativeDocumentMoniker": "Participant.cpp",
+              "ToolTip": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Participant.cpp",
+              "RelativeToolTip": "Participant.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-08T14:39:18.3Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Organiser.cpp",
+              "DocumentMoniker": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Organiser.cpp",
+              "RelativeDocumentMoniker": "Organiser.cpp",
+              "ToolTip": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Organiser.cpp",
+              "RelativeToolTip": "Organiser.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-08T14:39:16.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DateTime.hpp",
+              "DocumentMoniker": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\DateTime.hpp",
+              "RelativeDocumentMoniker": "DateTime.hpp",
+              "ToolTip": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\DateTime.hpp",
+              "RelativeToolTip": "DateTime.hpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-08T14:39:15.246Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DateTime.cpp",
+              "DocumentMoniker": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\DateTime.cpp",
+              "RelativeDocumentMoniker": "DateTime.cpp",
+              "ToolTip": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\DateTime.cpp",
+              "RelativeToolTip": "DateTime.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-08T14:39:13.536Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Conference_Management_Main.cpp",
+              "DocumentMoniker": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Conference_Management_Main.cpp",
+              "RelativeDocumentMoniker": "Conference_Management_Main.cpp",
+              "ToolTip": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Conference_Management_Main.cpp",
+              "RelativeToolTip": "Conference_Management_Main.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-08T14:39:09.67Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Conference.hpp",
+              "DocumentMoniker": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Conference.hpp",
+              "RelativeDocumentMoniker": "Conference.hpp",
+              "ToolTip": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Conference.hpp",
+              "RelativeToolTip": "Conference.hpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-08T14:39:04.198Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Conference.cpp",
+              "DocumentMoniker": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Conference.cpp",
+              "RelativeDocumentMoniker": "Conference.cpp",
+              "ToolTip": "C:\\Users\\Karthikeyan Sushimon\\Desktop\\Files\\python files\\Test Files\\Conference_Management\\Conference.cpp",
+              "RelativeToolTip": "Conference.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-08T14:38:53.691Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
