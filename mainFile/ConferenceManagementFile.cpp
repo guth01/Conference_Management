@@ -1,3 +1,4 @@
+#include <map>
 #include <iostream>
 #include <string>
 //#include <limits>
@@ -139,7 +140,6 @@ class Venue
 std :: string Venue :: placeList[MAX_VENUES];
 int Venue :: numVenues = 0;
 
-#include <map>
 
 // class User {
 //     private:
@@ -377,7 +377,6 @@ class Sponsor : public User {
 //     return 0;
     
 // }
-#include <map>
 
 
 class Conference
