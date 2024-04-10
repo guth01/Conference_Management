@@ -165,9 +165,9 @@ class User
         std :: string username;
         std :: string password;
         std :: string email;
-        static std :: map<std::string, User*> userMap;
 
     public:
+        static std :: map<std::string, User*> userMap;
         // Constructor
         User(std :: string name, short int age, std :: string regNO, std :: string gender, 
             std :: string username, std :: string password, std :: string email)
@@ -178,7 +178,9 @@ class User
         }
 
         // Default Constructor
-        User() : age(0) {}
+        User() {}; 
+        // This implementation must be removed
+        // default cons
 
         static User* getUserByUsername(const std::string& username) 
         {
@@ -239,6 +241,8 @@ class User
 
         // More functions like updateName, updateAge, etc. can be added similarly
 };
+std::map<std::string, User*> User::userMap;
+
 class Organiser : public User 
 {
     private:
@@ -280,10 +284,8 @@ class Participant: public User
     public:
         // Constructor
         Participant(const User& user) : User(user)
-        {
-            
-        }
-        Participant() : conferenceName(""), scheduledDay(""), scheduledTime(""), conferenceScheduled(false)
+        {}
+        Participant() : scheduledDay(""), scheduledTime(""), conferenceScheduled(false)
         {
             std :: cout << "" << std :: endl;
         }
@@ -296,6 +298,7 @@ class Participant: public User
         void showConference();
         void showTime();
 };
+
 void Participant :: scheduleConference(std :: string name, std :: string day, std :: string time)
 {
     // Check if the conference is already scheduled
@@ -313,6 +316,7 @@ void Participant :: scheduleConference(std :: string name, std :: string day, st
     std :: cout << "Conference '" << conferenceName << "' scheduled successfully on " << day << " at " << time << std :: endl;
     showConference();
 }
+
 void Participant::showConference()
 {
     if (!conferenceScheduled)
@@ -418,7 +422,9 @@ class Conference
         
 
 };
+std :: map <std :: string, Conference*> Conference :: conferenceMap;
 void page_1();
+
 void exploreConferences(User &user)
 {
     int i = 1;
@@ -430,24 +436,33 @@ void exploreConferences(User &user)
 
     std::cout << "Enter the number of the conference you want to explore: ";
     int choice;
-    std::cin >> choice;
-
-    // Get the selected conference
+    std :: cin >> choice;
+    std :: cout << "\n";
     auto it = Conference :: conferenceMap.begin();
-    std::advance(it, choice - 1);
+    for (int i = 0; i < choice - 1; ++ i)
+    {
+        std :: cout << i << "." << it -> first << "\n";
+    }
+    std :: cout << "Enter your choice: ";
+    std :: cin >> choice;
+    std :: cout << "\n";
+    std :: advance(it, choice - 1);
     Conference* selectedConference = it -> second;
 
-    std::cout << "You selected: " << selectedConference->getName() << "\n";
-    std::cout << "1. Join\n";
-    std::cout << "2. Organise\n";
-    std::cout << "3. Sponsor\n";
-    std::cout << "4. Back to main menu\n";
-    std::cout << "Enter your choice: ";
-    std::cin >> choice;
+    std :: cout << "\nYou selected: " << it -> first;
+    std :: cout << "\n1. Join";
+    std :: cout << "\n2. Organise";
+    std :: cout << "\n3. Sponsor";
+    std :: cout << "\n4. Back to main menu";
+    std :: cout << "\nEnter your choice: ";
+    std :: cin >> choice;
 
-    switch(choice) {
+    switch(choice)
+    {
         case 1:
         {
+            // needs remodelling 
+            // participant is its own thing not just of one conference
             Participant p(user);
             p.showTime();
             char choice;
@@ -487,17 +502,22 @@ void exploreConferences(User &user)
             std::cout << "Invalid choice. Please try again.\n";
     }
 }
-void createConferences(){};
+void createConferences()
+{
+
+    new Conference();
+};
 
 void page_2(User &user)
 {
-    std :: cout << "\t\tMAIN MENU";
-    std :: cout << "1. Explore Conferences\n"; 
-    std :: cout << "2. Create Conference\n";
-    std :: cout << "3. Exit\n";
+    std :: cout << "\n\t\tMAIN MENU";
+    std :: cout << "\n1. Explore Conferences"; 
+    std :: cout << "\n2. Create Conference";
+    std :: cout << "\n3. Exit";
     int resp;
+    std :: cout << ": ";
     std :: cin >> resp;
-    do
+    while (true);
     {
         switch(resp)
         {
@@ -508,13 +528,24 @@ void page_2(User &user)
                 createConferences();
                 break;
             case 3:
+                for (std :: map <std :: string, Conference*> :: iterator it = Conference :: conferenceMap.begin(); it != Conference :: conferenceMap.end(); ++ it)
+                {
+                    delete it -> second;
+                }
+                Conference :: conferenceMap.clear();
+                for (std :: map <std :: string, User*> :: iterator it = User :: userMap.begin(); it != User :: userMap.end(); ++ it)
+                {
+                    delete it -> second;
+                }
+                Conference :: conferenceMap.clear();
+                User :: userMap.clear();
+                // paricipant and sponsor ones to be added as well
                 exit(0);
             default:
-                std :: cout << "Invalid response\n";
+                std :: cout << "\nInvalid response\n";
 
         }
     }
-    while (true);
 }
 
 void sign_up()
@@ -528,56 +559,63 @@ void sign_up()
     std::string email;
 
     std::cout << "Enter your details:\n";
-    std::cout << "Name: ";
+    std::cout << "\nName: ";
     std::cin >> name;
-    std::cout << "Age: ";
+    std::cout << "\nAge: ";
     std::cin >> age;
-    std::cout << "Registration Number: ";
+    std::cout << "\nRegistration Number: ";
     std::cin >> regNO;
-    std::cout << "Gender: ";
+    std::cout << "\nGender: ";
     std::cin >> gender;
-    std::cout << "Username: ";
+    std::cout << "\nUsername: ";
     std::cin >> username;
-    std::cout << "Password: ";
+    std::cout << "\nPassword: ";
+    // have to create a function for setting good password
     std::cin >> password;
-    std::cout << "Email: ";
+    std::cout << "\nEmail: ";
     std::cin >> email;
 
     // Create a new User and add it to the userMap
     new User(name, age, regNO, gender, username, password, email);
 
-    std::cout << "Signed up successfully.\n";
+    std::cout << "Signed up successfully.\n\n";
     page_1();
 }
 
 void sign_in()
 {
-    std :: string username;
-    std :: string password;
-    std :: cout << "Username : ";
-    std :: cin >> username;
-    std :: cin >> password;
-    User *user = User :: getUserByUsername(username);
-    if (user != nullptr && user -> getPassword() == password)
+    // Implementation can be changed for security reasons
+    while (true)
     {
-        std :: cout << "Password is correct.\n";
-        std :: cout << "Signed in successfully.";
+        std :: string username;
+        std :: string password;
+        std :: cout << "Username : ";
+        std :: cin >> username;
+        std :: cout << "Password : ";
+        std :: cin >> password;
+        User *user = User :: getUserByUsername(username);
+        if (user != nullptr && user -> getPassword() == password)
+        {
+            std :: cout << "\nPassword is correct.";
+            std :: cout << "\nSigned in successfully.";
+            page_2(*user);
+        }
+        else
+        {
+            std::cout << "\nInvalid username or password.";
+        }
     }
-    else
-    {
-        std::cout << "Invalid username or password.\n";
-    }
-    page_2(*user);
 }
+
 void page_1()
 {
-    std :: cout << "\t\tMAIN MENU";
+    std :: cout << "\n\t\tMAIN MENU\n";
     std :: cout << "1. Sign-In\n";
     std :: cout << "2. Sign-Up\n";
     std :: cout << "3. Exit\n";
     int resp;
     std :: cin >> resp;
-    do
+    while (true)
         switch(resp)
         {
             case 1:
@@ -592,7 +630,6 @@ void page_1()
                 std :: cout << "Invalid response\n";
 
         }
-    while (true);
 }
 
 int main(void)

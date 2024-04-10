@@ -11,6 +11,11 @@
 // #include "Organiser.h"
 #include <map>
 
+
+std::map<std::string, Conference*> Conference::conferenceMap;
+int Conference::no_of_conferences = 0;
+std :: map<std::string, User*> userMap;
+static int numVenues = 0;
 void page_1();
 void exploreConferences(User &user)
 {

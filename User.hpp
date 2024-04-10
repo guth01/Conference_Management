@@ -1,7 +1,9 @@
+#pragma once
 #ifndef USER_HPP
 #define USER_HPP
 
 #include <string>
+#include <map>
 
 class User
 {
@@ -13,6 +15,7 @@ private:
     std::string username;
     std::string password;
     std::string email;
+    static std :: map<std::string, User*> userMap;
 
 public:
     // Constructor
