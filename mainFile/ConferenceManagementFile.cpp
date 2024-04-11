@@ -582,6 +582,7 @@ void page_2(User &user)
                 createConferences();
                 break;
             case 3:
+                // the followign code will be added to an deleteAll() function
                 for (std :: map <std :: string, Conference*> :: iterator it = Conference :: conferenceMap.begin(); it != Conference :: conferenceMap.end(); ++ it)
                 {
                     delete it -> second;
