@@ -206,7 +206,7 @@ class User
         std :: string getEmail() const { return email; }
 
         // Display user information
-        void display() const {
+        virtual void display() const {//virtual keyword is used so that the method display can be overidden by base classes when necessary
             std :: cout << "Name: " << name << "\nAge: " << age 
                 << "\nRegistration Number: " << regNO 
                 << "\nGender: " << gender << "\nUsername: " 
@@ -255,9 +255,13 @@ class Organiser : public User
         std::string getOrganiserTitle() const { return organiserTitle; }
 
         // Display organiser information
-        void displayOrganiserInfo() const {
-            display(); // Display user information from the base class
-            std::cout << "Organisation Name: " << organisationName << "\nOrganiser Title: " << organiserTitle << std::endl;
+        void display() const override {
+            std :: cout << "Name: " << name << "\nAge: " << age 
+                << "\nRegistration Number: " << regNO 
+                << "\nGender: " << gender << "\nUsername: " 
+                << username << "\nEmail: " << email << std :: endl << "Organisation Name: " << organisationName << "\nOrganiser Title: " << organiserTitle << std::endl;
+            //the display function of the base class is overridden to display different information
+        
         }
 };
 
@@ -341,7 +345,7 @@ class Sponsor : public User {
         : User(name, age, regNO, gender, username, password, email),
         sponsoredEvent(event), amount(amt) {};
 
-        void display()
+        void display override() //the display function of the base class is overridden to display different information
         {
             std :: cout << "Sponsor: ";
             User :: display();
