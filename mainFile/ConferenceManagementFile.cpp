@@ -1,7 +1,9 @@
 #include <map>
 #include <iostream>
 #include <string>
+#include <vector>
 //#include <limits>
+class Conference;
 class DateTime
 {
     private:
@@ -33,6 +35,7 @@ class DateTime
                 throw std :: invalid_argument("Error: Not a valid Date Format\n");
             }
         }
+        std :: string displayTime(){}; // needs to be defined
 };
 
 class Venue
@@ -140,21 +143,6 @@ class Venue
 std :: string Venue :: placeList[MAX_VENUES];
 int Venue :: numVenues = 0;
 
-
-// class User {
-//     private:
-//         std :: string name;
-//         std :: string email;
-    
-//     public:
-//         User(std :: string name, std :: string email): name(name), email(email) {}
-        
-//         void display()
-//         {
-//             std :: cout << "Name: " << name << ", Email: " << email;
-//         }
-// };
-
 class User
 {
     private:
@@ -252,6 +240,7 @@ class Organiser : public User
     public:
         // Constructor
         Organiser(){};
+        Organiser(const User& user) : User(user){};
         Organiser(std::string name, short int age, std::string regNO, std::string gender,
                 std::string username, std::string password, std::string email,
                 std::string orgName, std::string title)
@@ -276,66 +265,70 @@ class Organiser : public User
 class Participant: public User
 {
     private:
-        std :: string conferenceName;
-        std :: string scheduledDay;
-        std :: string scheduledTime;
-        bool conferenceScheduled;
+        std :: vector <Conference*> scheduledConferences = {};
+        std :: vector <DateTime*> scheduledDateTimes = {};
+    
+        // bool conferenceScheduled;
 
     public:
         // Constructor
-        Participant(const User& user) : User(user)
-        {}
-        Participant() : scheduledDay(""), scheduledTime(""), conferenceScheduled(false)
-        {
-            std :: cout << "" << std :: endl;
-        }
-        // Destructor
-        ~Participant()
-        {
-            std :: cout << "" << std :: endl;
-        }
-        void scheduleConference(std :: string name, std :: string day, std :: string time);
-        void showConference();
-        void showTime();
+        // copy constructor should be the only way to init
+        Participant(const User& user) : User(user){};
+
+        // This seems to be not required
+        Participant(){};
+
+        ~Participant(){};
+
+        void scheduleConference(Conference *conference);
+        void showConferences();
+        void showTimes(/*std :: string format*/); // format arguments to be added in the future
 };
 
-void Participant :: scheduleConference(std :: string name, std :: string day, std :: string time)
+void Participant :: scheduleConference(Conference *conference)
 {
-    // Check if the conference is already scheduled
-    if (conferenceScheduled && scheduledDay == day && scheduledTime == time)
+    // Check if participant already registered for the conference
+    for (Conference* conference_ : scheduledConferences)
     {
-        std :: cout << "There is already a conference scheduled on " << day << " at " << time << ". Please choose another time." << std :: endl;
+        // should be changed to getID()
+        if (conference_ -> getName() == conference -> getName())
+        {
+            std :: cout << "\nConference already registered.";
+            return;
+        }
+    }
+    scheduledConferences.push_back(conference);
+    scheduledDateTimes.push_back(&(conference -> getDateTime()));
+    // needs to code for the conference to register a participant
+    // conference -> register(&participant)
+    std :: cout << "\nConference registered successfully.";
+}
+
+void Participant :: showConferences()
+{
+    if (scheduledConferences.empty())
+    {
+        std :: cout << "\nNo conferences scheduled.";
         return;
     }
 
-    // Schedule the conference
-    conferenceName = name;
-    scheduledDay = day;
-    scheduledTime = time;
-    conferenceScheduled = true;
-    std :: cout << "Conference '" << conferenceName << "' scheduled successfully on " << day << " at " << time << std :: endl;
-    showConference();
+    std :: cout << "\nScheduled Conferences : ";
+    for (Conference *conference_ : scheduledConferences)
+    {
+        std :: cout << "\nConference Name: " << conference_ -> getName();
+        DateTime datetime_ = conference_ -> getDateTime();
+        std :: cout << "\nDay: " << datetime_.displayDate("HHHH") << ", Time: " << datetime_.displayTime(/*some time format*/);
+    }
 }
 
-void Participant::showConference()
+void Participant :: showTimes(/*std :: string format*/)
 {
-    if (!conferenceScheduled)
+    for (DateTime *datetime_ : scheduledDateTimes)
     {
-        std :: cout << "No conference scheduled." << std :: endl;
-        return;
+        std :: cout << "\n" << datetime_ -> displayDate("DD-MM-YYYY"/*format1*/) << datetime_ -> displayTime(/*format2*/);
     }
-    std :: cout << "Scheduled Conference:" << std :: endl;
-    std :: cout << "Conference Name: " << conferenceName << std :: endl;
-    std :: cout << "Day: " << scheduledDay << ", Time: " << scheduledTime << std :: endl;
 }
-void Participant::showTime()
-{
-    std :: cout << "Available Time Slots:" << std :: endl;
-    std :: cout << "8:00 AM - 10:00 AM" << std :: endl;
-    std :: cout << "10:00 AM - 12:00 PM" << std :: endl;
-    std :: cout << "2:00 PM - 5:00 PM" << std :: endl;
-    std :: cout << "5:00 PM - 7:00 PM" << std :: endl;
-}
+
 class Sponsor : public User {
     private:
         std :: string sponsoredEvent;
@@ -346,7 +339,7 @@ class Sponsor : public User {
         Sponsor(std::string name, short int age, std::string regNO, std::string gender, 
         std::string username, std::string password, std::string email, std :: string event, double amt) 
         : User(name, age, regNO, gender, username, password, email),
-        sponsoredEvent(event), amount(amt) {}
+        sponsoredEvent(event), amount(amt) {};
 
         void display()
         {
@@ -388,9 +381,9 @@ class Conference
     protected:
         DateTime datetime;
         Venue venue;
-        Organiser organisers[30];
-        Participant participants[500];
-        Sponsor sponsors[20];
+        std :: vector <Organiser*> organisers;
+        std :: vector <Participant*> participants;
+        std :: vector <Sponsor*> sponsors;
         double generated_amt;
         std :: string conference_id;
         std :: string name;
@@ -399,7 +392,7 @@ class Conference
         static std :: map <std :: string, Conference*> conferenceMap;
         static int no_of_conferences;
 
-    // Constructor
+        // Constructor
         Conference()
         {
             // Add this Conference instance to the map
@@ -418,43 +411,92 @@ class Conference
                 return nullptr;
             }
         }
-        std :: string getName(){ return name; }
-        
+        std :: string getName()
+        { 
+            return name; 
+        }
+        DateTime getDateTime()
+        {
+            return datetime;
+        }
 
 };
+
 std :: map <std :: string, Conference*> Conference :: conferenceMap;
 void page_1();
 
+bool isDigits(const std::string &str) 
+{
+    for (char c : str) 
+    {
+        if (!std :: isdigit(static_cast <unsigned char> (c))) 
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+std :: map <std :: string, Conference*> :: iterator getConference(int n = 10)
+{
+    int i = 0;
+    while (true)
+    {
+        auto it = Conference :: conferenceMap.begin();
+        size_t size = Conference :: conferenceMap.size();
+        while (true)
+        {
+            while (i < n - 1 && i < size)
+            {
+                std :: cout << i << "." << it -> first << "\n";
+                ++ i;
+            }
+
+            std :: cout << "Enter your choice [n / next / prev]: ";
+            std :: string resp;
+            std :: cin >> resp;
+            std :: cout << "\n";
+            if (isDigits(resp))
+            {
+                std :: advance(it, n - 1);
+                return it;
+            }
+            else if (resp == "next")
+            {
+                if ((size - 10) < i) 
+                {
+                    i = 0;
+                    n = 10;
+                }
+                else 
+                {
+                    i += 10;
+                    n += 10;
+                }
+            }
+            else if (resp == "prev")
+            {
+                if (i != 0)
+                {
+                    i -= 10;
+                    n -= 10;
+                };
+            }
+        }
+
+    }
+    // Conference* selectedConference = it -> second;
+
+}
+
 void exploreConferences(User &user)
 {
-    int i = 1;
-    for (const auto& pair : Conference :: conferenceMap)
-    {
-        std::cout << i << ". " << pair.first << "\n";
-        i++;
-    }
-
-    std::cout << "Enter the number of the conference you want to explore: ";
-    int choice;
-    std :: cin >> choice;
-    std :: cout << "\n";
-    auto it = Conference :: conferenceMap.begin();
-    for (int i = 0; i < choice - 1; ++ i)
-    {
-        std :: cout << i << "." << it -> first << "\n";
-    }
-    std :: cout << "Enter your choice: ";
-    std :: cin >> choice;
-    std :: cout << "\n";
-    std :: advance(it, choice - 1);
-    Conference* selectedConference = it -> second;
-
-    std :: cout << "\nYou selected: " << it -> first;
     std :: cout << "\n1. Join";
     std :: cout << "\n2. Organise";
     std :: cout << "\n3. Sponsor";
     std :: cout << "\n4. Back to main menu";
     std :: cout << "\nEnter your choice: ";
+    int choice;
     std :: cin >> choice;
 
     switch(choice)
@@ -462,49 +504,61 @@ void exploreConferences(User &user)
         case 1:
         {
             // needs remodelling 
-            // participant is its own thing not just of one conference
-            Participant p(user);
-            p.showTime();
-            char choice;
+            // participant is its own thing not just of one conference 
+            // update : remodelling complete
+            Participant* participant = new Participant(user);
+            choice = 'y';
             do
             {
-                std :: string name, day, time;
-
-                std :: cout << "\nEnter the name of the conference: ";
-                getline(std :: cin, name);
-
-                std :: cout << "Enter the date for scheduling the conference (e.g., 2024-03-21): ";
-                getline(std :: cin, day);
-
-                std :: cout << "Enter the time for scheduling the conference (e.g., 10:00 AM): ";
-                getline(std :: cin, time);
-
-                p.scheduleConference(name, day, time);
-
-                std :: cout << "\nDo you want to schedule another conference? (y/n): ";
+                std :: map <std :: string, Conference*> :: iterator it = getConference();
+                std :: cout << "\nYou selected: " << it -> first;
+                participant -> scheduleConference(it -> second);
+                std :: cout << "\nSchedule More? [y / any key]: ";
                 std :: cin >> choice;
-                //std :: cin >> choice; std :: cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n'); // Clear input buffer
-               
+                // want to use goto but thats bad design
+                // update : goto not required
             }
-            while (choice == 'y' || choice == 'Y');
+            while (choice == 'y');
             break;
         }
         case 2:
             // Code to organise the conference
+            Organiser* organiser = new Organiser(user);
+            choice = 'y';
+            do
+            {
+                std :: map <std :: string, Conference*> :: iterator it = getConference();
+                std :: cout << "\nYou selected: " << it -> first;
+                organiser -> organiseConference(it -> second);
+                std :: cout << "\nOrganise More? [y / any key]: ";
+                std :: cin >> choice;
+            }
+            while (choice == 'y');
             break;
         case 3:
             // Code to sponsor the conference
+            Sponsor* sponsor = new Sponsor(user);
+            choice = 'y';
+            do
+            {
+                std :: map <std :: string, Conference*> :: iterator it = getConference();
+                std :: cout << "\nYou selected: " << it -> first;
+                sponsor -> sponsorConference(it -> second);
+                std :: cout << "\nSponsor More? [y / any key]: ";
+                std :: cin >> choice;
+            }
+            while (choice == 'y');
             break;
         case 4:
-            // Code to go back to the main menu
+            page_2(user);
             break;
         default:
             std::cout << "Invalid choice. Please try again.\n";
     }
 }
+
 void createConferences()
 {
-
     new Conference();
 };
 
@@ -605,6 +659,12 @@ void sign_in()
             std::cout << "\nInvalid username or password.";
         }
     }
+}
+
+void deleteAll()
+{
+    // delete all pointer memebers from conference
+    // needs to used everywhere
 }
 
 void page_1()

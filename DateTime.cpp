@@ -5,8 +5,8 @@ class DateTime
 {
     private:
         std :: string date;
-        std :: string day;
         std :: string time;
+        std :: string day;
 
     public:
         DateTime() : date("12-03-2005"), time("13:00:00"), day("Sunday")
