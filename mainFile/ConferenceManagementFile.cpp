@@ -257,6 +257,7 @@ class Organiser : public User
         std::string getOrganiserTitle() const { return organiserTitle; }
 
         // Display organiser information
+
         void displayOrganiserInfo() const
         {
             display(); // Display user information from the base class
@@ -346,8 +347,8 @@ class Sponsor : public User {
         sponsoredEvent(event), amount(amt) {};
         Sponsor(User &User){};
 
-        
-        void display() const override
+        void display() const override;
+
         {
             std :: cout << "Sponsor: ";
             User :: display();
