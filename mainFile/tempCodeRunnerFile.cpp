@@ -1,0 +1,1 @@
+void page_2(User &user)
