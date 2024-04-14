@@ -347,8 +347,7 @@ class Sponsor : public User {
         sponsoredEvent(event), amount(amt) {};
         Sponsor(User &User){};
 
-        void display() const override;
-
+        void display() const override
         {
             std :: cout << "Sponsor: ";
             User :: display();
