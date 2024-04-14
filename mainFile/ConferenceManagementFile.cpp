@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 //#include <limits>
+
+
 class Conference;
 class DateTime
 {
@@ -206,7 +208,7 @@ class User
         std :: string getEmail() const { return email; }
 
         // Display user information
-        void display() const {
+        virtual void display() const {//virtual keyword is used so that the method display can be overidden by base classes when necessary
             std :: cout << "Name: " << name << "\nAge: " << age 
                 << "\nRegistration Number: " << regNO 
                 << "\nGender: " << gender << "\nUsername: " 
@@ -255,10 +257,12 @@ class Organiser : public User
         std::string getOrganiserTitle() const { return organiserTitle; }
 
         // Display organiser information
-        void displayOrganiserInfo() const {
+        void displayOrganiserInfo() const
+        {
             display(); // Display user information from the base class
             std::cout << "Organisation Name: " << organisationName << "\nOrganiser Title: " << organiserTitle << std::endl;
         }
+        void organiseConference(Conference *conference){};
 };
 
 
@@ -340,13 +344,16 @@ class Sponsor : public User {
         std::string username, std::string password, std::string email, std :: string event, double amt) 
         : User(name, age, regNO, gender, username, password, email),
         sponsoredEvent(event), amount(amt) {};
+        Sponsor(User &User){};
 
-        void display()
+        
+        void display() const override
         {
             std :: cout << "Sponsor: ";
             User :: display();
             std :: cout << ", Event: " << sponsoredEvent << ", Amount: ₹" << amount;
         }
+        void sponsorConference(Conference* conference){};
     
 };
 
