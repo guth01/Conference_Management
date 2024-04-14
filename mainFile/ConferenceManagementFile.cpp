@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 //#include <limits>
+
+
 class Conference;
 class DateTime
 {
@@ -255,14 +257,13 @@ class Organiser : public User
         std::string getOrganiserTitle() const { return organiserTitle; }
 
         // Display organiser information
-        void display() const override {
-            std :: cout << "Name: " << name << "\nAge: " << age 
-                << "\nRegistration Number: " << regNO 
-                << "\nGender: " << gender << "\nUsername: " 
-                << username << "\nEmail: " << email << std :: endl << "Organisation Name: " << organisationName << "\nOrganiser Title: " << organiserTitle << std::endl;
-            //the display function of the base class is overridden to display different information
-        
+
+        void displayOrganiserInfo() const
+        {
+            display(); // Display user information from the base class
+            std::cout << "Organisation Name: " << organisationName << "\nOrganiser Title: " << organiserTitle << std::endl;
         }
+        void organiseConference(Conference *conference){};
 };
 
 
@@ -344,13 +345,16 @@ class Sponsor : public User {
         std::string username, std::string password, std::string email, std :: string event, double amt) 
         : User(name, age, regNO, gender, username, password, email),
         sponsoredEvent(event), amount(amt) {};
+        Sponsor(User &User){};
 
-        void display override() //the display function of the base class is overridden to display different information
+        void display() const override;
+
         {
             std :: cout << "Sponsor: ";
             User :: display();
             std :: cout << ", Event: " << sponsoredEvent << ", Amount: ₹" << amount;
         }
+        void sponsorConference(Conference* conference){};
     
 };
 
@@ -586,6 +590,7 @@ void page_2(User &user)
                 createConferences();
                 break;
             case 3:
+                // the followign code will be added to an deleteAll() function
                 for (std :: map <std :: string, Conference*> :: iterator it = Conference :: conferenceMap.begin(); it != Conference :: conferenceMap.end(); ++ it)
                 {
                     delete it -> second;
