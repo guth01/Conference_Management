@@ -301,11 +301,14 @@ void Participant :: scheduleConference(Conference *conference)
             return;
         }
     }
+    Participant& operator+=(Conference* conference) {
     scheduledConferences.push_back(conference);
     scheduledDateTimes.push_back(&(conference -> getDateTime()));
     // needs to code for the conference to register a participant
     // conference -> register(&participant)
     std :: cout << "\nConference registered successfully.";
+        return *this;
+    }
 }
 
 void Participant :: showConferences()
