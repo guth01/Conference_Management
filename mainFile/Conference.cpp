@@ -38,6 +38,9 @@ class DateTime
         {
             return "";
         } // needs to be defined
+
+        //@gauthum operator overloading of ==
+
 };
 
 class Venue
@@ -140,6 +143,8 @@ class Venue
                 std::cerr << "Error: Venue not found!\n";
             }
         }
+        //@gauthum operator overloading of ==
+        
 };
 
 class User;
