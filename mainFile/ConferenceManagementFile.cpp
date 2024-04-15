@@ -30,7 +30,7 @@ void createConferences()
     cout << "\nChoose the time slot by number (1-4): ";
     int choice;
     cin >> choice;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the input buffer after reading
+    cin.ignore(std :: numeric_limits<std :: streamsize>::max(), '\n'); // Clear the input buffer after reading
 
     switch (choice) 
     {
@@ -54,10 +54,6 @@ void createConferences()
     }
 }
 
-void CreateConference::schedule() 
-{
-    scheduleConference();
-}
 
 // int main() 
 // {
@@ -76,7 +72,7 @@ void CreateConference::schedule()
 
 //     return 0;
 // }
-};
+
 
 bool isDigits(const std::string &str) 
 {
