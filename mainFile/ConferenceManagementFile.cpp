@@ -15,15 +15,43 @@ void createConferences()
 {
     std :: string name;
     std :: string temp1, temp2;
-    Venue venue;
     std :: cout << "\nEnter the name of the conference: ";
     getline(std :: cin, name);
     std :: cout << "\n\n\n";
     Venue :: showVenues();
     std :: cout << "\n\n";
-    std :: cout << "\nEnter the name of the venue: ";
-    std :: cin >> temp1;
-    DateTime datetime(temp1, temp2);
+    while (true)
+    {
+        std :: cout << "\nEnter the name of the venue: ";
+        getline(std :: cin, temp1);
+        if (Venue :: checkVenue(temp1))
+        {
+            std :: cout << "\nVenue exists.";
+            Venue venue(temp1);
+            while (true)
+            {
+                getline(std :: cin, temp1);
+                getline(std :: cin, temp2);
+                if (!DateTime :: checkDateTime(temp1, temp2))
+                {
+                    // @Sharvesh needs to specify what part is incorrect within the function checkDateTime()
+                    std :: cout << "\nIncorrect DateTime format.";
+                    continue;
+                }
+                DateTime datetime(temp1, temp2);
+                if (Conference :: isTimeSlotAvailable(datetime, venue))
+                {
+                    std :: cout << "\nSlot Available.\nSlot booked successfully.";
+                    break;
+                }
+                std :: cout << "\nSlot already booked.\nTry Again.";
+
+            }
+        }
+        std :: cout << "\nVenue doesn't exist.\nTry Again.";        
+    }
+
+    
     std :: cout << "\nEnter the date for the conference (e.g., 2024-04-15): ";
     getline(std :: cin, date);
     showAvailableTimeSlots();

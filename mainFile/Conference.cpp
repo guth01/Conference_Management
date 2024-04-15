@@ -38,21 +38,16 @@ class DateTime
                 throw std :: invalid_argument("Error: Not a valid Date Format\n");
             }
         }
-        
+
         std :: string displayTime()
         {
             return "";
             // @Sharvesh define this
         } // needs to be defined
 
-        std :: string checkDate(std :: string& date_)
+        static bool checkDateTime(std :: string& date_, std :: string& time_)
         {
-            return ""; // @Sharvesh define this
-        }
-
-        std :: string checkTime(std :: string& time_)
-        {
-            return ""; // @Sharvesh define this
+            return true; // @Sharvesh define this
         }
 
         //@gauthum operator overloading of ==
@@ -82,12 +77,6 @@ class Venue
             }
         }
         ~Venue(){};
-
-        void assignVenue(const std :: string& venue_name_)
-        {
-            venue_name = venue_name_;
-        }
-
         static void addVenue(const std :: string& p) 
         {
             for (int i = 0; i < numVenues; ++i) 
@@ -165,7 +154,7 @@ class Venue
             }
         }
 
-        static void checkVenue(const std :: string venue_name_)
+        static bool checkVenue(const std :: string venue_name_)
         {
             // @Uditanshu 
         }
@@ -229,17 +218,17 @@ class Conference
             std :: cout << "3. 2:00 PM - 5:00 PM" << std :: endl;
             std :: cout << "4. 5:00 PM - 7:00 PM" << std :: endl;
         }
-        bool isTimeSlotAvailable(DateTime datetime_, Venue venue_) 
+        static bool isTimeSlotAvailable(DateTime datetime_, Venue venue_) 
         {
             
             std :: map <std :: string, Conference*> :: iterator it = conferenceMap.begin();
             for (std :: map <std :: string, Conference*> :: iterator end = conferenceMap.end(); it != end; ++ it)
             {
                 Conference* conference_ = it -> second;
-                if (conference_ -> datetime == datetime_ && conference_ -> venue == venue_)
-                {
-                    return false;
-                }
+                // if (conference_ -> datetime == datetime_ && conference_ -> venue == venue_)
+                // {
+                //     return false;
+                // }
             }
             return true;
         }
@@ -452,7 +441,7 @@ class Sponsor : public User {
             User :: display();
             std :: cout << ", Event: " << sponsoredEvent << ", Amount: ₹" << amount;
         }
-        void sponsorConference(Conference* conference){};
+        void sponsorConference(Conference* conference){}
     
 };
 std :: string Venue :: placeList[MAX_VENUES];
