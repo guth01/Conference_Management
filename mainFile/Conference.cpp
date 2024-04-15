@@ -190,7 +190,24 @@ class Conference
         {
             return datetime;
         }
-
+        void showAvailableTimeSlots() // what does this do?
+        {
+            std :: cout << "Available Time Slots:" << std :: endl;
+            std :: cout << "1. 8:00 AM - 10:00 AM" << std :: endl;
+            std :: cout << "2. 10:00 AM - 12:00 PM" << std :: endl;
+            std :: cout << "3. 2:00 PM - 5:00 PM" << std :: endl;
+            std :: cout << "4. 5:00 PM - 7:00 PM" << std :: endl;
+        }
+        bool isTimeSlotAvailable(DateTime datetime_, Venue venue_) 
+        {
+            
+            std :: map <std :: string, Conference*> :: iterator it = conferenceMap.begin();
+            for (std :: map <std :: string, Conference*> :: iterator end = conferenceMap.end(); it != end; ++ it)
+            {
+                if (it -> second -> datetime == datetime_)
+            }
+            return true;
+        }
 };
 
 class User

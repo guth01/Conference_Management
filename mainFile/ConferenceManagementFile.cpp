@@ -13,7 +13,67 @@ void createConferences();
 
 void createConferences()
 {
-    new Conference();
+    
+
+
+
+void CreateConference::scheduleConference() 
+{
+    string name, date, timeSlot;
+    cout << "Enter the name of the conference: ";
+    getline(cin, name);
+    cout << "Enter the date for the conference (e.g., 2024-04-15): ";
+    getline(cin, date);
+    showAvailableTimeSlots();
+    cout << "Choose the time slot by number (1-4): ";
+    int choice;
+    cin >> choice;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the input buffer after reading
+
+    switch (choice) 
+    {
+        case 1: timeSlot = "8:00 AM - 10:00 AM"; break;
+        case 2: timeSlot = "10:00 AM - 12:00 PM"; break;
+        case 3: timeSlot = "2:00 PM - 5:00 PM"; break;
+        case 4: timeSlot = "5:00 PM - 7:00 PM"; break;
+        default:
+            cout << "Invalid choice. Defaulting to the first time slot." << endl;
+            timeSlot = "8:00 AM - 10:00 AM";
+    }
+
+    if (!isTimeSlotAvailable(date, timeSlot)) 
+    {
+        cout << "There is already a conference scheduled on " << date << " at " << timeSlot << ". Please choose another time." << endl;
+    } 
+    else 
+    {
+        conferences.push_back({name, date, timeSlot});
+        cout << "Conference scheduled successfully!" << endl;
+    }
+}
+
+void CreateConference::schedule() 
+{
+    scheduleConference();
+}
+
+// int main() 
+// {
+//     CreateConference scheduler;
+//     char choice;
+
+//     do 
+//     {
+//         scheduler.schedule();
+
+//         cout << "\nDo you want to schedule another conference? (y/n): ";
+//         cin >> choice;
+//         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the input buffer
+//     } 
+//     while (choice == 'y' || choice == 'Y');
+
+//     return 0;
+// }
 };
 
 bool isDigits(const std::string &str) 
@@ -35,12 +95,14 @@ std :: map <std :: string, Conference*> :: iterator getConference(int n = 10)
     {
         auto it = Conference :: conferenceMap.begin();
         size_t size = Conference :: conferenceMap.size();
+        size_t i = 0;
         while (true)
         {
             while (i < n - 1 && i < size)
             {
                 std :: cout << i << "." << it -> first << "\n";
                 ++ i;
+                ++ it;
             }
 
             std :: cout << "Enter your choice [n / next / prev]: ";
