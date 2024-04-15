@@ -15,6 +15,10 @@ class DateTime
         {
             // constructor for sample purpose only
         }
+        DateTime(std :: string date, std :: string time)
+        {
+            // constructor for sample purpose only
+        }
         std :: string displayDate(std :: string format)
         {
             if (format == "HHHH")
@@ -34,10 +38,22 @@ class DateTime
                 throw std :: invalid_argument("Error: Not a valid Date Format\n");
             }
         }
+        
         std :: string displayTime()
         {
             return "";
+            // @Sharvesh define this
         } // needs to be defined
+
+        std :: string checkDate(std :: string& date_)
+        {
+            return ""; // @Sharvesh define this
+        }
+
+        std :: string checkTime(std :: string& time_)
+        {
+            return ""; // @Sharvesh define this
+        }
 
         //@gauthum operator overloading of ==
 
@@ -60,12 +76,17 @@ class Venue
                 if (placeList[i] == p) 
                 {
                     venue_name = p;
-                    std :: cout << "Venue Found\n";
-                    std :: cout << "Venue Chosen Successfully.\n";
+                    std :: cout << "\nVenue Found";
+                    std :: cout << "\nVenue Chosen Successfully.";
                 }
             }
         }
         ~Venue(){};
+
+        void assignVenue(const std :: string& venue_name_)
+        {
+            venue_name = venue_name_;
+        }
 
         static void addVenue(const std :: string& p) 
         {
@@ -143,8 +164,13 @@ class Venue
                 std::cerr << "Error: Venue not found!\n";
             }
         }
+
+        static void checkVenue(const std :: string venue_name_)
+        {
+            // @Uditanshu 
+        }
         //@gauthum operator overloading of ==
-        
+
 };
 
 class User;
@@ -209,7 +235,11 @@ class Conference
             std :: map <std :: string, Conference*> :: iterator it = conferenceMap.begin();
             for (std :: map <std :: string, Conference*> :: iterator end = conferenceMap.end(); it != end; ++ it)
             {
-                if (it -> second -> datetime == datetime_)
+                Conference* conference_ = it -> second;
+                if (conference_ -> datetime == datetime_ && conference_ -> venue == venue_)
+                {
+                    return false;
+                }
             }
             return true;
         }

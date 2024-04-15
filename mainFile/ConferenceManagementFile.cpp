@@ -13,19 +13,21 @@ void createConferences();
 
 void createConferences()
 {
-    
-
-
-
-void CreateConference::scheduleConference() 
-{
-    string name, date, timeSlot;
-    cout << "Enter the name of the conference: ";
-    getline(cin, name);
-    cout << "Enter the date for the conference (e.g., 2024-04-15): ";
-    getline(cin, date);
+    std :: string name;
+    std :: string temp1, temp2;
+    Venue venue;
+    std :: cout << "\nEnter the name of the conference: ";
+    getline(std :: cin, name);
+    std :: cout << "\n\n\n";
+    Venue :: showVenues();
+    std :: cout << "\n\n";
+    std :: cout << "\nEnter the name of the venue: ";
+    std :: cin >> temp1;
+    DateTime datetime(temp1, temp2);
+    std :: cout << "\nEnter the date for the conference (e.g., 2024-04-15): ";
+    getline(std :: cin, date);
     showAvailableTimeSlots();
-    cout << "Choose the time slot by number (1-4): ";
+    cout << "\nChoose the time slot by number (1-4): ";
     int choice;
     cin >> choice;
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the input buffer after reading
