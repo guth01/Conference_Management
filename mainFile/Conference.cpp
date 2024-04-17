@@ -156,13 +156,21 @@ class Venue
             }
         }
 
-        static bool checkVenue(const std :: string venue_name_)
+    static bool checkVenue(const std::string& venue_name_)
+    {
+        for (int i = 0; i < numVenues; ++i)
         {
-            // @ 5 define this
-            return true; 
+            if (placeList[i] == venue_name_)
+            {
+                return true; // Venue found
+            }
         }
-        //@ 6 operator overloading of ==
-
+        return false; // Venue not found
+    }
+    bool operator==(const Venue& v1, const Venue& v2)
+    {
+    return v1.venue_name_ == v2.venue_name_;
+    }
 };
 
 class User;
