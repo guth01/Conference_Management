@@ -14,93 +14,76 @@ void createConferences();
 void createConferences()
 {
     std :: string name;
-    std :: string temp1, temp2;
+    std :: string date, timeSlot;
+    std :: string venue_name;
+    int choice;
+
     std :: cout << "\nEnter the name of the conference: ";
     getline(std :: cin, name);
     std :: cout << "\n\n\n";
+
     Venue :: showVenues();
     std :: cout << "\n\n";
+
     while (true)
     {
         std :: cout << "\nEnter the name of the venue: ";
-        getline(std :: cin, temp1);
-        if (Venue :: checkVenue(temp1))
+        getline(std :: cin, venue_name);
+
+        if (Venue :: checkVenue(venue_name))
         {
             std :: cout << "\nVenue exists.";
-            Venue venue(temp1);
-            while (true)
-            {
-                getline(std :: cin, temp1);
-                getline(std :: cin, temp2);
-                if (!DateTime :: checkDateTime(temp1, temp2))
-                {
-                    // @Sharvesh needs to specify what part is incorrect within the function checkDateTime()
-                    std :: cout << "\nIncorrect DateTime format.";
-                    continue;
-                }
-                DateTime datetime(temp1, temp2);
-                if (Conference :: isTimeSlotAvailable(datetime, venue))
-                {
-                    std :: cout << "\nSlot Available.\nSlot booked successfully.";
-                    break;
-                }
-                std :: cout << "\nSlot already booked.\nTry Again.";
-
-            }
+            break;
         }
-        std :: cout << "\nVenue doesn't exist.\nTry Again.";        
+        else
+        {
+            std :: cout << "\nVenue doesn't exist.\nTry Again.";
+        }  
+    }
+    Venue venue(venue_name);
+
+    while (true)
+    {
+        Conference :: showAvailableTimeSlots(venue);
+        std::cout << "\nEnter date in DD-MM-YYYY format.\n";
+        getline(std::cin, date);
+
+        std::cout << "\nChoose the time slot by number (1-4): ";
+        std::cin >> choice;
+        std::cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n'); // Clear the input buffer after reading
+
+        switch (choice) 
+        {
+            case 1: timeSlot = "8:00 AM"; break;
+            case 2: timeSlot = "10:00 AM"; break;
+            case 3: timeSlot = "2:00 PM"; break;
+            case 4: timeSlot = "5:00 PM"; break;
+            default:
+                std::cout << "Invalid choice. Defaulting to the first time slot." << std :: endl;
+                timeSlot = "8:00 AM";
+        }
+        if (!DateTime :: checkDateTime(date, timeSlot))
+        {
+            // @Sharvesh needs to specify what part is incorrect within the function checkDateTime()
+            std :: cout << "\nIncorrect DateTime format.\nTry Again.\n";
+            continue;
+        }
+
+        DateTime datetime(date, timeSlot);
+        if (Conference :: isTimeSlotAvailable(datetime, venue))
+        {
+            std :: cout << "\nSlot Available.\nSlot booked successfully.";
+            break;
+        }
+
+        std :: cout << "\nSlot already booked.\nTry Again.\n";
     }
 
-    
-    std :: cout << "\nEnter the date for the conference (e.g., 2024-04-15): ";
-    getline(std :: cin, date);
-    showAvailableTimeSlots();
-    cout << "\nChoose the time slot by number (1-4): ";
+    std :: cout << "\nChoose the time slot by number (1-4): ";
     int choice;
-    cin >> choice;
-    cin.ignore(std :: numeric_limits<std :: streamsize>::max(), '\n'); // Clear the input buffer after reading
-
-    switch (choice) 
-    {
-        case 1: timeSlot = "8:00 AM - 10:00 AM"; break;
-        case 2: timeSlot = "10:00 AM - 12:00 PM"; break;
-        case 3: timeSlot = "2:00 PM - 5:00 PM"; break;
-        case 4: timeSlot = "5:00 PM - 7:00 PM"; break;
-        default:
-            cout << "Invalid choice. Defaulting to the first time slot." << endl;
-            timeSlot = "8:00 AM - 10:00 AM";
-    }
-
-    if (!isTimeSlotAvailable(date, timeSlot)) 
-    {
-        cout << "There is already a conference scheduled on " << date << " at " << timeSlot << ". Please choose another time." << endl;
-    } 
-    else 
-    {
-        conferences.push_back({name, date, timeSlot});
-        cout << "Conference scheduled successfully!" << endl;
-    }
+    std :: cin >> choice;
+    std :: cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n'); // Clear the input buffer after reading
 }
-
-
-// int main() 
-// {
-//     CreateConference scheduler;
-//     char choice;
-
-//     do 
-//     {
-//         scheduler.schedule();
-
-//         cout << "\nDo you want to schedule another conference? (y/n): ";
-//         cin >> choice;
-//         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the input buffer
-//     } 
-//     while (choice == 'y' || choice == 'Y');
-
-//     return 0;
-// }
-
 
 bool isDigits(const std::string &str) 
 {
@@ -135,6 +118,7 @@ std :: map <std :: string, Conference*> :: iterator getConference(int n = 10)
             std :: string resp;
             std :: cin >> resp;
             std :: cout << "\n";
+
             if (isDigits(resp))
             {
                 std :: advance(it, n - 1);
@@ -167,6 +151,7 @@ std :: map <std :: string, Conference*> :: iterator getConference(int n = 10)
     // Conference* selectedConference = it -> second;
 
 }
+
 void page_2(User &user)
 {
     std :: cout << "\n\t\tMAIN MENU";
@@ -187,20 +172,8 @@ void page_2(User &user)
                 createConferences();
                 break;
             case 3:
-                // the followign code will be added to an deleteAll() function
-                for (std :: map <std :: string, Conference*> :: iterator it = Conference :: conferenceMap.begin(); it != Conference :: conferenceMap.end(); ++ it)
-                {
-                    delete it -> second;
-                }
-                Conference :: conferenceMap.clear();
-                for (std :: map <std :: string, User*> :: iterator it = User :: userMap.begin(); it != User :: userMap.end(); ++ it)
-                {
-                    delete it -> second;
-                }
-                Conference :: conferenceMap.clear();
-                User :: userMap.clear();
-                // paricipant and sponsor ones to be added as well
-                exit(0);
+                deleteAllExit();
+               
             default:
                 std :: cout << "\nInvalid response\n";
 
@@ -284,10 +257,6 @@ void exploreConferences(User &user)
     }
 }
 
-
-
-
-
 void sign_up()
 {
     std::string name;
@@ -347,10 +316,24 @@ void sign_in()
     }
 }
 
-void deleteAll()
+void deleteAllExit()
 {
     // delete all pointer memebers from conference
     // needs to used everywhere
+    for (std :: map <std :: string, Conference*> :: iterator it = Conference :: conferenceMap.begin(); it != Conference :: conferenceMap.end(); ++ it)
+    {
+        delete it -> second;
+    }
+    Conference :: conferenceMap.clear();
+    for (std :: map <std :: string, User*> :: iterator it = User :: userMap.begin(); it != User :: userMap.end(); ++ it)
+    {
+        delete it -> second;
+    }
+    Conference :: conferenceMap.clear();
+    User :: userMap.clear();
+    // paricipant and sponsor ones to be added as well
+    // @ needs to be completed
+    exit(0);
 }
 
 void page_1()
@@ -374,7 +357,6 @@ void page_1()
                 exit(0);
             default:
                 std :: cout << "Invalid response\n";
-
         }
 }
 

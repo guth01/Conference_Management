@@ -1,1 +1,1 @@
-void page_2(User &user)
+Conference :: setInitID(1000);
