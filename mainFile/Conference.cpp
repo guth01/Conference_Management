@@ -247,6 +247,15 @@ class Conference
             }
             return true;
         }
+        void updateSponsoredAmount(double new_sponsored_amount, double old_sponsored_amount = 0)
+        {
+            generated_amt += new_sponsored_amount - old_sponsored_amount;
+            return;
+        }
+        std :: vector <Sponsor*> getSponsors()
+        {
+            return sponsors;
+        }
 };
 
 
@@ -452,6 +461,8 @@ class Sponsor : public User {
         sponsored_event_(event), amount_(amt) {};
         Sponsor(User &user) : User(user), amount_(0.0){};
 
+        std :: string getEventName(){return sponsored_event_;}
+
         void display() const override
         {
             std :: cout << "Sponsor: ";
@@ -460,29 +471,29 @@ class Sponsor : public User {
         }
         void sponsorConference() 
         {
-            std::cout << "\nEnter the amount to sponsor: ";
+            double sponsored_amount;
+            std :: cout << "\nEnter the amount to sponsor: ";
+            std :: cin >> sponsored_amount;
             Conference* conference = Conference :: getConferenceByName(sponsored_event_);
             
             for (Sponsor* sponsor : conference -> getSponsors()) 
             {
                 if (sponsor == this) {
                     // Conference already sponsored, update sponsorship amount
-                    conference 
-                    conference->updateSponsoredAmount(sponsoredAmount);
+
+                    conference -> updateSponsoredAmount(sponsored_amount, amount_);
                     std::cout << "\nSponsorship amount for the conference updated successfully.";
                     return;
                 }
             }
             // Conference not sponsored yet, sponsor it
-            sponsored_amt += sponsoredAmount;
-            conference->addSponsor(this);
-            conference->updateSponsoredAmount(sponsoredAmount);
+            conference -> updateSponsoredAmount(sponsored_amount);
             std::cout << "\nConference sponsored successfully.";
         }
 
         double getSponsoredAmount() const 
         {
-            return amount;
+            return amount_;
         } 
 };
 std :: string Venue :: placeList[MAX_VENUES];

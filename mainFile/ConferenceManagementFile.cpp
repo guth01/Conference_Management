@@ -78,8 +78,6 @@ void createConferences()
 
         std :: cout << "\nSlot already booked.\nTry Again.\n";
     }
-
-    std :: cout << "\nChoose the time slot by number (1-4): ";
     int choice;
     std :: cin >> choice;
     std :: cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n'); // Clear the input buffer after reading
@@ -238,7 +236,7 @@ void exploreConferences(User &user)
             {
                 std :: map <std :: string, Conference*> :: iterator it = getConference();
                 std :: cout << "\nYou selected: " << it -> first;
-                sponsor -> sponsorConference(it -> second);
+                sponsor -> sponsorConference();
                 std :: cout << "\nSponsor More? [y / any key]: ";
                 std :: cin >> choice;
             }
