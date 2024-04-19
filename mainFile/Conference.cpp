@@ -158,12 +158,21 @@ class Venue
             }
         }
 
-        static bool checkVenue(const std :: string venue_name_)
+        static bool checkVenue(const std :: string& venue_name_)
         {
-            // @ 5 define this
-            return true; 
+            for (int i = 0; i < numVenues_; ++i)
+            {
+                if (placeList_[i] == venue_name_)
+                {
+                    return true; // Venue found
+                }
+            }
+            return false; // Venue not found
         }
-        //@ 6 operator overloading of ==
+        bool operator == (const Venue& v)
+        {
+            return this -> venue_name_ == v.venue_name_;
+        }
 
 };
 
@@ -191,10 +200,10 @@ class Conference
         static int init_id;
         static std :: map <std :: string, Conference*> conferenceMap;
         static int no_of_conferences;
-        void registerParticipant(Conference* conference, Participant* participant)
-        {
-            conference -> participants_.push_back(participant);
-        }
+        // void registerParticipant(Conference* conference, Participant* participant)
+        // {
+        //     conference -> participants_.push_back(participant);
+        // }
 
         // Constructor
         Conference(DateTime datetime, Venue venue, Organiser* organiser) : datetime_(datetime), venue_(venue), generated_amt_(0.0), conference_id_(init_id), name_(), organisers_({organiser})
@@ -406,7 +415,7 @@ class Participant: public User
         Participant(const User& user) : User(user){};
 
         ~Participant(){};
-        friend void registerParticipant(Conference* conference, Participant* participant);
+        // friend void registerParticipant(Conference* conference, Participant* participant);
         void scheduleConference(Conference *conference)
         {
             // Check if participant already registered for the conference
@@ -425,7 +434,7 @@ class Participant: public User
             
             // needs to code for the conference to register a participant
 
-            registerParticipant(conference, this);
+            //registerParticipant(conference, this);
             std :: cout << "\nConference registered successfully.";
         }
 

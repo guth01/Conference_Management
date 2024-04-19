@@ -160,7 +160,7 @@ void page_2(User &user)
     int resp;
     std :: cout << "\n: ";
     std :: cin >> resp;
-    while (true);
+    while (true)
     {
         std :: cout << "error:1";
         switch(resp)
@@ -282,7 +282,7 @@ void sign_up()
     // Create a new User and add it to the userMap
     std :: make_unique<User>(name, age, regNO, gender, username, password, email);
 
-    std::cout << "\nSigned up successfully.\n\n";
+    std :: cout << "\nSigned up successfully.\n\n";
     page_1();
 }
 
