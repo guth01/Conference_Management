@@ -1,15 +1,32 @@
-#include <map>
-#include <iostream>
-#include <string>
-#include <vector>
-
+#include <memory>
 #include "Conference.cpp"
-
+#include <limits>
 
 void page_1();
 void page_2(User& user);
 void exploreConferences(User& user);
 void createConferences(User& user);
+
+
+void deleteAllExit()
+{
+    // // delete all pointer memebers from conference
+    // // needs to used everywhere
+    // for (std :: map <std :: string, Conference*> :: iterator it = Conference :: conferenceMap.begin(); it != Conference :: conferenceMap.end(); ++ it)
+    // {
+    //     delete it -> second;
+    // }
+    // Conference :: conferenceMap.clear();
+    // for (std :: map <std :: string, User*> :: iterator it = User :: userMap.begin(); it != User :: userMap.end(); ++ it)
+    // {
+    //     delete it -> second;
+    // }
+    // Conference :: conferenceMap.clear();
+    // User :: userMap.clear();
+    // // paricipant and sponsor ones to be added as well
+    // // @ needs to be completed
+    // exit(0);
+}
 
 void createConferences(User& user)
 {
@@ -59,8 +76,8 @@ void createConferences(User& user)
                 std :: cout << "\nSlot Available.\nSlot booked successfully.";
             }
             std :: cout << "\nSlot already booked.\nTry Again.\n";
-            std :: unique_ptr<Organiser> participant = std :: make_unique<Organiser>(user);
-            Conference conference(datetime, venue, participant.get());
+            std :: unique_ptr<Organiser> organiser = std :: make_unique<Organiser>(user);
+            Conference conference(datetime, venue, organiser.get());
         }
         else
         {
@@ -145,6 +162,7 @@ void page_2(User &user)
     std :: cin >> resp;
     while (true);
     {
+        std :: cout << "error:1";
         switch(resp)
         {
             case 1:
@@ -293,25 +311,7 @@ void sign_in()
     }
 }
 
-void deleteAllExit()
-{
-    // delete all pointer memebers from conference
-    // needs to used everywhere
-    for (std :: map <std :: string, Conference*> :: iterator it = Conference :: conferenceMap.begin(); it != Conference :: conferenceMap.end(); ++ it)
-    {
-        delete it -> second;
-    }
-    Conference :: conferenceMap.clear();
-    for (std :: map <std :: string, User*> :: iterator it = User :: userMap.begin(); it != User :: userMap.end(); ++ it)
-    {
-        delete it -> second;
-    }
-    Conference :: conferenceMap.clear();
-    User :: userMap.clear();
-    // paricipant and sponsor ones to be added as well
-    // @ needs to be completed
-    exit(0);
-}
+
 
 void page_1()
 {

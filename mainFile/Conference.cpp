@@ -78,7 +78,7 @@ class Venue
                 }
             }
         }
-        
+
         ~Venue(){};
 
         static void addVenue(const std :: string& venue_name) 
@@ -172,6 +172,7 @@ class Organiser;
 class Participant;
 class Sponsor;
 
+
 class Conference
 {
     protected:
@@ -196,6 +197,10 @@ class Conference
             conferenceMap[name_] = this;
             init_id ++;
 
+        }
+        void Participant :: registerParticipant(Conference* conference, Participant* participant)
+        {
+            conference -> participants_.push_back(participant);
         }
 
         // Method to get Conference instance by name
@@ -253,6 +258,9 @@ class Conference
         {
             return sponsors_;
         }
+
+        // @ make a getConferenceMap() static function that returns the conferenceMap and make the actual property conferenceMap private
+
 };
 
 
@@ -376,14 +384,16 @@ class Organiser : public User
             display(); // Display user information from the base class
             std::cout << "Organisation Name: " << organisationName << "\nOrganiser Title: " << organiserTitle << std::endl;
         }
-        void organiseConference(Conference *conference){};
+        void organiseConference(Conference *conference){;}
+        // @ needs to be defined
+        // needs to add the pointer to this instance to the sponsors in Conefrence class
 };
 
 class Participant: public User
 {
     private:
-        std :: vector <Conference*> scheduledConferences = {};
-        std :: vector <DateTime*> scheduledDateTimes = {};
+        std :: vector <Conference*> scheduledConferences_ = {};
+        std :: vector <DateTime*> scheduledDateTimes_ = {};
     
         // bool conferenceScheduled;
 
@@ -392,19 +402,12 @@ class Participant: public User
         // copy constructor should be the only way to init
         Participant(const User& user) : User(user){};
 
-        // This seems to be not required
-        // Participant(){};
-
         ~Participant(){};
-
-        void scheduleConference(Conference *conference);
-        void showConferences();
-        void showTimes(/*std :: string format*/); // format arguments to be added in the future
-
+        friend void registerParticipant(Conference* conference, Participant* participant);
         void scheduleConference(Conference *conference)
         {
             // Check if participant already registered for the conference
-            for (Conference* conference_ : scheduledConferences)
+            for (Conference* conference_ : scheduledConferences_)
             {
                 // should be changed to getID()
                 if (conference_ -> getName() == conference -> getName())
@@ -414,24 +417,25 @@ class Participant: public User
                 }
             }
             DateTime* newDateTime = new DateTime(conference -> getDateTime());
-            scheduledConferences.push_back(conference);
-            scheduledDateTimes.push_back(newDateTime);
+            scheduledConferences_.push_back(conference);
+            scheduledDateTimes_.push_back(newDateTime);
             
             // needs to code for the conference to register a participant
-            // conference -> register(&participant)
+
+            conference -> registerParticipant(this);
             std :: cout << "\nConference registered successfully.";
         }
 
         void showConferences()
         {
-            if (scheduledConferences.empty())
+            if (scheduledConferences_.empty())
             {
                 std :: cout << "\nNo conferences scheduled.";
                 return;
             }
 
             std :: cout << "\nScheduled Conferences : ";
-            for (Conference *conference_ : scheduledConferences)
+            for (Conference *conference_ : scheduledConferences_)
             {
                 std :: cout << "\nConference Name: " << conference_ -> getName();
                 DateTime datetime_ = conference_ -> getDateTime();
@@ -441,7 +445,7 @@ class Participant: public User
 
         void showTimes(/*std :: string format*/)
         {
-            for (DateTime *datetime_ : scheduledDateTimes)
+            for (DateTime *datetime_ : scheduledDateTimes_)
             {
                 std :: cout << "\n" << datetime_ -> displayDate("DD-MM-YYYY"/*format1*/) << datetime_ -> displayTime(/*format2*/);
             }
