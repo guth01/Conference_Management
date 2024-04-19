@@ -9,9 +9,9 @@
 void page_1();
 void page_2(User& user);
 void exploreConferences(User& user);
-void createConferences();
+void createConferences(User& user);
 
-void createConferences()
+void createConferences(User& user)
 {
     std :: string name;
     std :: string date, timeSlot;
@@ -29,61 +29,47 @@ void createConferences()
     {
         std :: cout << "\nEnter the name of the venue: ";
         getline(std :: cin, venue_name);
-
+        Venue venue(venue_name);
+        
         if (Venue :: checkVenue(venue_name))
         {
             std :: cout << "\nVenue exists.";
-            break;
+            Conference :: showAvailableTimeSlots(venue);
+            std :: cout << "\nEnter date in DD-MM-YYYY format.\n";
+            getline(std :: cin, date);
+
+            std :: cout << "\nChoose the time slot by number (1-4): ";
+            std :: cin >> choice;
+            std :: cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n'); // Clear the input buffer after reading
+
+            switch (choice) 
+            {
+                case 1: timeSlot = "8:00 AM"; break;
+                case 2: timeSlot = "10:00 AM"; break;
+                case 3: timeSlot = "2:00 PM"; break;
+                case 4: timeSlot = "5:00 PM"; break;
+                default:
+                    std :: cout << "Invalid choice. Defaulting to the first time slot." << std :: endl;
+                    timeSlot = "8:00 AM";
+            }
+
+            DateTime datetime(date, timeSlot);
+            if (Conference :: isTimeSlotAvailable(datetime, venue))
+            {
+                std :: cout << "\nSlot Available.\nSlot booked successfully.";
+            }
+            std :: cout << "\nSlot already booked.\nTry Again.\n";
+            std :: unique_ptr<Organiser> participant = std :: make_unique<Organiser>(user);
+            Conference conference(datetime, venue, participant.get());
         }
         else
         {
             std :: cout << "\nVenue doesn't exist.\nTry Again.";
         }  
     }
-    Venue venue(venue_name);
-
-    while (true)
-    {
-        Conference :: showAvailableTimeSlots(venue);
-        std::cout << "\nEnter date in DD-MM-YYYY format.\n";
-        getline(std::cin, date);
-
-        std::cout << "\nChoose the time slot by number (1-4): ";
-        std::cin >> choice;
-        std::cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n'); // Clear the input buffer after reading
-
-        switch (choice) 
-        {
-            case 1: timeSlot = "8:00 AM"; break;
-            case 2: timeSlot = "10:00 AM"; break;
-            case 3: timeSlot = "2:00 PM"; break;
-            case 4: timeSlot = "5:00 PM"; break;
-            default:
-                std::cout << "Invalid choice. Defaulting to the first time slot." << std :: endl;
-                timeSlot = "8:00 AM";
-        }
-        if (!DateTime :: checkDateTime(date, timeSlot))
-        {
-            // @Sharvesh needs to specify what part is incorrect within the function checkDateTime()
-            std :: cout << "\nIncorrect DateTime format.\nTry Again.\n";
-            continue;
-        }
-
-        DateTime datetime(date, timeSlot);
-        if (Conference :: isTimeSlotAvailable(datetime, venue))
-        {
-            std :: cout << "\nSlot Available.\nSlot booked successfully.";
-            break;
-        }
-
-        std :: cout << "\nSlot already booked.\nTry Again.\n";
-    }
-    int choice;
-    std :: cin >> choice;
-    std :: cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n'); // Clear the input buffer after reading
 }
 
-bool isDigits(const std::string &str) 
+bool isDigits(const std :: string &str) 
 {
     for (char c : str) 
     {
@@ -141,13 +127,11 @@ std :: map <std :: string, Conference*> :: iterator getConference(int n = 10)
                 {
                     i -= 10;
                     n -= 10;
-                };
+                }
             }
         }
 
     }
-    // Conference* selectedConference = it -> second;
-
 }
 
 void page_2(User &user)
@@ -167,7 +151,7 @@ void page_2(User &user)
                 exploreConferences(user);
                 break;
             case 2:
-                createConferences();
+                createConferences(user);
                 break;
             case 3:
                 deleteAllExit();
@@ -193,10 +177,7 @@ void exploreConferences(User &user)
     {
         case 1:
         {
-            // needs remodelling 
-            // participant is its own thing not just of one conference 
-            // update : remodelling complete
-            Participant* participant = new Participant(user);
+            std :: unique_ptr<Participant> participant = std :: make_unique<Participant>(user);
             choice = 'y';
             do
             {
@@ -205,8 +186,6 @@ void exploreConferences(User &user)
                 participant -> scheduleConference(it -> second);
                 std :: cout << "\nSchedule More? [y / any key]: ";
                 std :: cin >> choice;
-                // want to use goto but thats bad design
-                // update : goto not required
             }
             while (choice == 'y');
             break;
@@ -214,7 +193,7 @@ void exploreConferences(User &user)
         case 2:
         {
             // Code to organise the conference
-            Organiser* organiser = new Organiser(user);
+            std :: unique_ptr<Organiser> organiser = std :: make_unique<Organiser>(user);
             choice = 'y';
             do
             {
@@ -230,7 +209,7 @@ void exploreConferences(User &user)
         case 3:
         {
             // Code to sponsor the conference
-            Sponsor* sponsor = new Sponsor(user);
+            std :: unique_ptr<Sponsor> sponsor = std :: make_unique<Sponsor>(user);
             choice = 'y';
             do
             {
@@ -283,7 +262,7 @@ void sign_up()
     std::cin >> email;
 
     // Create a new User and add it to the userMap
-    new User(name, age, regNO, gender, username, password, email);
+    std :: make_unique<User>(name, age, regNO, gender, username, password, email);
 
     std::cout << "\nSigned up successfully.\n\n";
     page_1();

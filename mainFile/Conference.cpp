@@ -59,17 +59,18 @@ class Venue
 {
     private:
         std :: string venue_name_;
-        static int numVenues; // Number of venues currently stored
-        static const int MAX_VENUES = 100; // Maximum number of venues
-        static std :: string placeList[MAX_VENUES]; // Array to store venue names
+        static int numVenues_; // Number of venues currently stored
+        static const int MAX_VENUES_ = 100; // Maximum number of venues
+        static std :: string placeList_[MAX_VENUES_]; // Array to store venue names
+        // @7 create venues either here or at the bottom of the code (about 15 atleast)
 
     public:
         Venue(){};
         Venue(const std :: string& venue_name) 
         {
-            for (int i = 0; i < numVenues; ++ i) 
+            for (int i = 0; i < numVenues_; ++ i) 
             {
-                if (placeList[i] == venue_name) 
+                if (placeList_[i] == venue_name) 
                 {
                     venue_name_ = venue_name;
                     std :: cout << "\nVenue Found";
@@ -77,21 +78,22 @@ class Venue
                 }
             }
         }
+        
         ~Venue(){};
 
         static void addVenue(const std :: string& venue_name) 
         {
-            for (int i = 0; i < numVenues; ++ i) 
+            for (int i = 0; i < numVenues_; ++ i) 
             {
-                if (placeList[i] == venue_name) 
+                if (placeList_[i] == venue_name) 
                 {
                     std::cout << "Cannot add venue: " << venue_name << " is already in the list.\n";
                     return;
                 }
             }
-            if (numVenues < MAX_VENUES)
+            if (numVenues_ < MAX_VENUES_)
             {
-                placeList[numVenues ++] = venue_name; // Add the new venue to the list
+                placeList_[numVenues_ ++] = venue_name; // Add the new venue to the list
             } 
             else 
             {
@@ -102,9 +104,9 @@ class Venue
         static void deleteVenue(const std :: string& venue_name) 
         {
             int index = -1;
-            for (int i = 0; i < numVenues; ++ i) 
+            for (int i = 0; i < numVenues_; ++ i) 
             {
-                if (placeList[i] == venue_name) 
+                if (placeList_[i] == venue_name) 
                 {
                     index = i;
                     break;
@@ -112,11 +114,11 @@ class Venue
             }
             if (index != -1)
             {
-                for (int i = index; i < numVenues - 1; ++ i)
+                for (int i = index; i < numVenues_ - 1; ++ i)
                 {
-                    placeList[i] = placeList[i + 1]; // Shift venues to fill the gap
+                    placeList_[i] = placeList_ [i + 1]; // Shift venues to fill the gap
                 }
-                numVenues--; // Decrease the number of venues
+                numVenues_ --; // Decrease the number of venues
             } 
             else 
             {
@@ -127,9 +129,9 @@ class Venue
         static void showVenues()
         {
             std :: cout << "Places in the venue list:\n";
-            for (int i = 0; i < numVenues; ++ i) 
+            for (int i = 0; i < numVenues_; ++ i) 
             {
-                std::cout << "- " << placeList[i] << '\n';
+                std::cout << "- " << placeList_[i] << '\n';
             }
         }
 
@@ -137,9 +139,9 @@ class Venue
         {
 
             int index = -1;
-            for (int i = 0; i < numVenues; ++ i) 
+            for (int i = 0; i < numVenues_; ++ i) 
             {
-                if (placeList[i] == oldPlace) 
+                if (placeList_[i] == oldPlace) 
                 {
                     index = i;
                     break;
@@ -148,7 +150,7 @@ class Venue
 
             if (index != -1) 
             {
-                placeList[index] = newPlace; // Replace the old venue with the new one
+                placeList_[index] = newPlace; // Replace the old venue with the new one
             } 
             else 
             {
@@ -173,14 +175,14 @@ class Sponsor;
 class Conference
 {
     protected:
-        DateTime datetime;
-        Venue venue;
-        std :: vector <Organiser*> organisers;
-        std :: vector <Participant*> participants;
-        std :: vector <Sponsor*> sponsors;
-        double generated_amt;
-        int conference_id;
-        std :: string name;
+        DateTime datetime_;
+        Venue venue_;
+        std :: vector <Organiser*> organisers_;
+        std :: vector <Participant*> participants_;
+        std :: vector <Sponsor*> sponsors_;
+        double generated_amt_;
+        int conference_id_;
+        std :: string name_;
 
     public:
         static int init_id;
@@ -188,15 +190,10 @@ class Conference
         static int no_of_conferences;
 
         // Constructor
-        Conference() : datetime(), venue(), generated_amt(0.0), conference_id(init_id), name()
+        Conference(DateTime datetime, Venue venue, Organiser* organiser) : datetime_(datetime), venue_(venue), generated_amt_(0.0), conference_id_(init_id), name_(), organisers_({organiser})
         {
-            // Clear vectors
-            organisers.clear();
-            participants.clear();
-            sponsors.clear();
-
             // Add this Conference instance to the map
-            conferenceMap[name] = this;
+            conferenceMap[name_] = this;
             init_id ++;
 
         }
@@ -216,12 +213,12 @@ class Conference
 
         std :: string getName()
         { 
-            return name; 
+            return name_; 
         }
 
         DateTime getDateTime()
         {
-            return datetime;
+            return datetime_;
         }
 
         static void showAvailableTimeSlots(Venue& venue) // @ Change this so that it accesses the slot from conference and shows the rest only 
@@ -233,14 +230,14 @@ class Conference
             std :: cout << "4. 5:00 PM - 7:00 PM" << std :: endl;
         }
 
-        static bool isTimeSlotAvailable(DateTime datetime_, Venue venue_) 
+        static bool isTimeSlotAvailable(DateTime datetime, Venue venue) 
         {
             
             std :: map <std :: string, Conference*> :: iterator it = conferenceMap.begin();
             for (std :: map <std :: string, Conference*> :: iterator end = conferenceMap.end(); it != end; ++ it)
             {
                 Conference* conference_ = it -> second;
-                // if (conference_ -> datetime == datetime_ && conference_ -> venue == venue_)
+                // if (conference_ -> datetime_ == datetime && conference_ -> venue_ == venue)
                 // {
                 //     return false;
                 // }
@@ -249,12 +246,12 @@ class Conference
         }
         void updateSponsoredAmount(double new_sponsored_amount, double old_sponsored_amount = 0)
         {
-            generated_amt += new_sponsored_amount - old_sponsored_amount;
+            generated_amt_ += new_sponsored_amount - old_sponsored_amount;
             return;
         }
         std :: vector <Sponsor*> getSponsors()
         {
-            return sponsors;
+            return sponsors_;
         }
 };
 
@@ -336,7 +333,8 @@ class User
         }
 
         // Update Information
-        void updateEmail(std :: string newEmail) {
+        void updateEmail(std :: string newEmail)
+        {
             email = newEmail;
         }
 
@@ -418,6 +416,7 @@ class Participant: public User
             DateTime* newDateTime = new DateTime(conference -> getDateTime());
             scheduledConferences.push_back(conference);
             scheduledDateTimes.push_back(newDateTime);
+            
             // needs to code for the conference to register a participant
             // conference -> register(&participant)
             std :: cout << "\nConference registered successfully.";
@@ -496,8 +495,8 @@ class Sponsor : public User {
             return amount_;
         } 
 };
-std :: string Venue :: placeList[MAX_VENUES];
-int Venue :: numVenues = 0;
+std :: string Venue :: placeList_[MAX_VENUES_];
+int Venue :: numVenues_ = 0;
 std :: map<std::string, User*> User::userMap;
 std :: map <std :: string, Conference*> Conference :: conferenceMap;
 int Conference :: init_id = 1000;
