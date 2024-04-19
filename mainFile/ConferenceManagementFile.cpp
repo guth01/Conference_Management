@@ -1,6 +1,6 @@
-#include <memory>
+
 #include "Conference.cpp"
-#include <limits>
+
 
 void page_1();
 void page_2(User& user);
@@ -10,22 +10,7 @@ void createConferences(User& user);
 
 void deleteAllExit()
 {
-    // // delete all pointer memebers from conference
-    // // needs to used everywhere
-    // for (std :: map <std :: string, Conference*> :: iterator it = Conference :: conferenceMap.begin(); it != Conference :: conferenceMap.end(); ++ it)
-    // {
-    //     delete it -> second;
-    // }
-    // Conference :: conferenceMap.clear();
-    // for (std :: map <std :: string, User*> :: iterator it = User :: userMap.begin(); it != User :: userMap.end(); ++ it)
-    // {
-    //     delete it -> second;
-    // }
-    // Conference :: conferenceMap.clear();
-    // User :: userMap.clear();
-    // // paricipant and sponsor ones to be added as well
-    // // @ needs to be completed
-    // exit(0);
+    
 }
 
 void createConferences(User& user)
@@ -162,7 +147,6 @@ void page_2(User &user)
     std :: cin >> resp;
     while (true)
     {
-        std :: cout << "error:1";
         switch(resp)
         {
             case 1:
@@ -309,7 +293,7 @@ void sign_in()
         if (user != nullptr && user -> getPassword() == password)
         {
             std :: cout << "\nPassword is correct.";
-            std :: cout << "\nSigned in successfully.";
+            std :: cout << "\nSigned in successfully.\n";
             page_2(*user);
         }
         else
@@ -323,7 +307,7 @@ void sign_in()
 
 void page_1()
 {
-    std :: cout << "\n\t\tMAIN MENU\n";
+    std :: cout << "\n\n\t\tMAIN MENU\n";
     std :: cout << "\n1. Sign-In\n";
     std :: cout << "\n2. Sign-Up\n";
     std :: cout << "\n3. Exit\n";
@@ -345,7 +329,11 @@ void page_1()
                 std :: cout << "Invalid response\n";
         }
 }
-
+// @ <lengthy moderately tough task> implementation of the "<-" to go back to everything
+// in the ui each time to use it. for example if you go from page 1 to page 2, typing "<-"
+// should make the control flow go back to page 1, since we wont be using goto or async
+// the function should figure out where to go back to (probably by the use of parameters)
+// 
 int main(void)
 {
     page_1();

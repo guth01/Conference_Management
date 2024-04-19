@@ -2,7 +2,8 @@
 #include <iostream>
 #include <vector>
 #include <map>
-
+#include <limits>
+#include <memory>
 class DateTime
 {
     private:
@@ -428,7 +429,7 @@ class Participant: public User
                     return;
                 }
             }
-            DateTime* newDateTime = new DateTime(conference -> getDateTime());
+            std :: unique_ptr<DateTime> newDateTime = std :: make_unique<DateTime> (conference -> getDateTime());
             scheduledConferences_.push_back(conference);
             scheduledDateTimes_.push_back(newDateTime);
             
@@ -511,7 +512,9 @@ class Sponsor : public User {
             return amount_;
         } 
 };
-std :: string Venue :: placeList_[MAX_VENUES_];
+
+// @ add more venues since we havent implemented flle handling for now
+std :: string Venue :: placeList_[MAX_VENUES_] = {"Anna Auditorium", "Foodies"};
 int Venue :: numVenues_ = 0;
 std :: map<std::string, User*> User::userMap;
 std :: map <std :: string, Conference*> Conference :: conferenceMap;
