@@ -169,8 +169,10 @@ class Venue
 
 class User;
 class Organiser;
-class Participant;
+class Participant;    
+
 class Sponsor;
+
 
 
 class Conference
@@ -189,6 +191,10 @@ class Conference
         static int init_id;
         static std :: map <std :: string, Conference*> conferenceMap;
         static int no_of_conferences;
+        void registerParticipant(Conference* conference, Participant* participant)
+        {
+            conference -> participants_.push_back(participant);
+        }
 
         // Constructor
         Conference(DateTime datetime, Venue venue, Organiser* organiser) : datetime_(datetime), venue_(venue), generated_amt_(0.0), conference_id_(init_id), name_(), organisers_({organiser})
@@ -198,10 +204,7 @@ class Conference
             init_id ++;
 
         }
-        void Participant :: registerParticipant(Conference* conference, Participant* participant)
-        {
-            conference -> participants_.push_back(participant);
-        }
+        
 
         // Method to get Conference instance by name
         static Conference* getConferenceByName(const std :: string& name) 
@@ -422,7 +425,7 @@ class Participant: public User
             
             // needs to code for the conference to register a participant
 
-            conference -> registerParticipant(this);
+            registerParticipant(conference, this);
             std :: cout << "\nConference registered successfully.";
         }
 
