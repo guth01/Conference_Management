@@ -1,22 +1,92 @@
-#include <map>
-#include <iostream>
-#include <string>
-#include <vector>
-
+#include <memory>
 #include "Conference.cpp"
-
+#include <limits>
 
 void page_1();
 void page_2(User& user);
 void exploreConferences(User& user);
-void createConferences();
+void createConferences(User& user);
 
-void createConferences()
+
+void deleteAllExit()
 {
-    new Conference();
-};
+    // // delete all pointer memebers from conference
+    // // needs to used everywhere
+    // for (std :: map <std :: string, Conference*> :: iterator it = Conference :: conferenceMap.begin(); it != Conference :: conferenceMap.end(); ++ it)
+    // {
+    //     delete it -> second;
+    // }
+    // Conference :: conferenceMap.clear();
+    // for (std :: map <std :: string, User*> :: iterator it = User :: userMap.begin(); it != User :: userMap.end(); ++ it)
+    // {
+    //     delete it -> second;
+    // }
+    // Conference :: conferenceMap.clear();
+    // User :: userMap.clear();
+    // // paricipant and sponsor ones to be added as well
+    // // @ needs to be completed
+    // exit(0);
+}
 
-bool isDigits(const std::string &str) 
+void createConferences(User& user)
+{
+    std :: string name;
+    std :: string date, timeSlot;
+    std :: string venue_name;
+    int choice;
+
+    std :: cout << "\nEnter the name of the conference: ";
+    getline(std :: cin, name);
+    std :: cout << "\n\n\n";
+
+    Venue :: showVenues();
+    std :: cout << "\n\n";
+
+    while (true)
+    {
+        std :: cout << "\nEnter the name of the venue: ";
+        getline(std :: cin, venue_name);
+        Venue venue(venue_name);
+        
+        if (Venue :: checkVenue(venue_name))
+        {
+            std :: cout << "\nVenue exists.";
+            Conference :: showAvailableTimeSlots(venue);
+            std :: cout << "\nEnter date in DD-MM-YYYY format.\n";
+            getline(std :: cin, date);
+
+            std :: cout << "\nChoose the time slot by number (1-4): ";
+            std :: cin >> choice;
+            std :: cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n'); // Clear the input buffer after reading
+
+            switch (choice) 
+            {
+                case 1: timeSlot = "8:00 AM"; break;
+                case 2: timeSlot = "10:00 AM"; break;
+                case 3: timeSlot = "2:00 PM"; break;
+                case 4: timeSlot = "5:00 PM"; break;
+                default:
+                    std :: cout << "Invalid choice. Defaulting to the first time slot." << std :: endl;
+                    timeSlot = "8:00 AM";
+            }
+
+            DateTime datetime(date, timeSlot);
+            if (Conference :: isTimeSlotAvailable(datetime, venue))
+            {
+                std :: cout << "\nSlot Available.\nSlot booked successfully.";
+            }
+            std :: cout << "\nSlot already booked.\nTry Again.\n";
+            std :: unique_ptr<Organiser> organiser = std :: make_unique<Organiser>(user);
+            Conference conference(datetime, venue, organiser.get());
+        }
+        else
+        {
+            std :: cout << "\nVenue doesn't exist.\nTry Again.";
+        }  
+    }
+}
+
+bool isDigits(const std :: string &str) 
 {
     for (char c : str) 
     {
@@ -35,18 +105,21 @@ std :: map <std :: string, Conference*> :: iterator getConference(int n = 10)
     {
         auto it = Conference :: conferenceMap.begin();
         size_t size = Conference :: conferenceMap.size();
+        size_t i = 0;
         while (true)
         {
             while (i < n - 1 && i < size)
             {
                 std :: cout << i << "." << it -> first << "\n";
                 ++ i;
+                ++ it;
             }
 
             std :: cout << "Enter your choice [n / next / prev]: ";
             std :: string resp;
             std :: cin >> resp;
             std :: cout << "\n";
+
             if (isDigits(resp))
             {
                 std :: advance(it, n - 1);
@@ -71,14 +144,13 @@ std :: map <std :: string, Conference*> :: iterator getConference(int n = 10)
                 {
                     i -= 10;
                     n -= 10;
-                };
+                }
             }
         }
 
     }
-    // Conference* selectedConference = it -> second;
-
 }
+
 void page_2(User &user)
 {
     std :: cout << "\n\t\tMAIN MENU";
@@ -90,29 +162,18 @@ void page_2(User &user)
     std :: cin >> resp;
     while (true);
     {
+        std :: cout << "error:1";
         switch(resp)
         {
             case 1:
                 exploreConferences(user);
                 break;
             case 2:
-                createConferences();
+                createConferences(user);
                 break;
             case 3:
-                // the followign code will be added to an deleteAll() function
-                for (std :: map <std :: string, Conference*> :: iterator it = Conference :: conferenceMap.begin(); it != Conference :: conferenceMap.end(); ++ it)
-                {
-                    delete it -> second;
-                }
-                Conference :: conferenceMap.clear();
-                for (std :: map <std :: string, User*> :: iterator it = User :: userMap.begin(); it != User :: userMap.end(); ++ it)
-                {
-                    delete it -> second;
-                }
-                Conference :: conferenceMap.clear();
-                User :: userMap.clear();
-                // paricipant and sponsor ones to be added as well
-                exit(0);
+                deleteAllExit();
+               
             default:
                 std :: cout << "\nInvalid response\n";
 
@@ -134,10 +195,7 @@ void exploreConferences(User &user)
     {
         case 1:
         {
-            // needs remodelling 
-            // participant is its own thing not just of one conference 
-            // update : remodelling complete
-            Participant* participant = new Participant(user);
+            std :: unique_ptr<Participant> participant = std :: make_unique<Participant>(user);
             choice = 'y';
             do
             {
@@ -146,8 +204,6 @@ void exploreConferences(User &user)
                 participant -> scheduleConference(it -> second);
                 std :: cout << "\nSchedule More? [y / any key]: ";
                 std :: cin >> choice;
-                // want to use goto but thats bad design
-                // update : goto not required
             }
             while (choice == 'y');
             break;
@@ -155,7 +211,7 @@ void exploreConferences(User &user)
         case 2:
         {
             // Code to organise the conference
-            Organiser* organiser = new Organiser(user);
+            std :: unique_ptr<Organiser> organiser = std :: make_unique<Organiser>(user);
             choice = 'y';
             do
             {
@@ -171,13 +227,13 @@ void exploreConferences(User &user)
         case 3:
         {
             // Code to sponsor the conference
-            Sponsor* sponsor = new Sponsor(user);
+            std :: unique_ptr<Sponsor> sponsor = std :: make_unique<Sponsor>(user);
             choice = 'y';
             do
             {
                 std :: map <std :: string, Conference*> :: iterator it = getConference();
                 std :: cout << "\nYou selected: " << it -> first;
-                sponsor -> sponsorConference(it -> second);
+                sponsor -> sponsorConference();
                 std :: cout << "\nSponsor More? [y / any key]: ";
                 std :: cin >> choice;
             }
@@ -195,10 +251,6 @@ void exploreConferences(User &user)
         }
     }
 }
-
-
-
-
 
 void sign_up()
 {
@@ -228,7 +280,7 @@ void sign_up()
     std::cin >> email;
 
     // Create a new User and add it to the userMap
-    new User(name, age, regNO, gender, username, password, email);
+    std :: make_unique<User>(name, age, regNO, gender, username, password, email);
 
     std::cout << "\nSigned up successfully.\n\n";
     page_1();
@@ -259,11 +311,7 @@ void sign_in()
     }
 }
 
-void deleteAll()
-{
-    // delete all pointer memebers from conference
-    // needs to used everywhere
-}
+
 
 void page_1()
 {
@@ -286,7 +334,6 @@ void page_1()
                 exit(0);
             default:
                 std :: cout << "Invalid response\n";
-
         }
 }
 
