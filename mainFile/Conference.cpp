@@ -156,7 +156,7 @@ class Venue
             }
         }
 
-    static bool checkVenue(const std::string& venue_name_)
+    static bool checkVenue(const std :: string& venue_name_)
     {
         for (int i = 0; i < numVenues; ++i)
         {
@@ -167,9 +167,9 @@ class Venue
         }
         return false; // Venue not found
     }
-    bool operator==(const Venue& v1, const Venue& v2)
+    bool operator == (const Venue& v1, const Venue& v2)
     {
-    return v1.venue_name_ == v2.venue_name_;
+        return v1.venue_name_ == v2.venue_name_;
     }
 };
 
