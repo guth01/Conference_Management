@@ -252,6 +252,7 @@ void exploreConferences(User &user)
     }
 }
 
+
 void sign_up()
 {
     std::string name;
@@ -262,6 +263,13 @@ void sign_up()
     std::string password;
     std::string email;
 
+    // @ <lengthy medium task> the getters defined in the user class must be overloaded 
+    // with static functions having the similar signature
+    // to check whether the followign attributes are correct or just name it somn
+    // like std :: string get<Attribute>Input() and make it use cin within the function
+    // like input in python. please make this static so everyother class can do this.
+    // the whole point of this is to check for abnormalities. use regex for email, name, username, reg no
+    // and finally use it here in place of the cin statements
     std::cout << "\nEnter your details:\n";
     std::cout << "\nName: ";
     std::cin >> name;
@@ -320,6 +328,7 @@ void page_1()
     std :: cout << "\n2. Sign-Up\n";
     std :: cout << "\n3. Exit\n";
     int resp;
+    std :: cout << "\n: ";
     std :: cin >> resp;
     while (true)
         switch(resp)
