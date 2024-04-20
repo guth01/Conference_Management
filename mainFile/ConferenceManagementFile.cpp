@@ -7,12 +7,12 @@ void page_2(User& user);
 void exploreConferences(User& user);
 void createConferences(User& user);
 
-
 void deleteAllExit()
 {
-    
+    Conference :: deleteAllConferences();
+    User :: deleteAllUsers();
+    exit(0);
 }
-
 void createConferences(User& user)
 {
     std :: string name;
@@ -35,9 +35,10 @@ void createConferences(User& user)
         
         if (Venue :: checkVenue(venue_name))
         {
-            std :: cout << "\nVenue exists.";
+            std :: cout << "\nVenue exists.\n";
             Conference :: showAvailableTimeSlots(venue);
             std :: cout << "\nEnter date in DD-MM-YYYY format.\n";
+            // @ checkDate() here in a while loop
             getline(std :: cin, date);
 
             std :: cout << "\nChoose the time slot by number (1-4): ";
@@ -59,16 +60,29 @@ void createConferences(User& user)
             if (Conference :: isTimeSlotAvailable(datetime, venue))
             {
                 std :: cout << "\nSlot Available.\nSlot booked successfully.";
+                Organiser* organiser = new Organiser(user);
+
+                std :: string conference_name;
+                std :: cout << "Enter the name of the coneference : ";
+                std :: cin >> conference_name;
+                Conference conference(conference_name, datetime, venue, organiser);
+                std :: cout << "reached 1";
+                break;
             }
-            std :: cout << "\nSlot already booked.\nTry Again.\n";
-            std :: unique_ptr<Organiser> organiser = std :: make_unique<Organiser>(user);
-            Conference conference(datetime, venue, organiser.get());
+            else 
+            {
+                std :: cout << "\nSlot already booked.\nTry Again.\n";
+            }
         }
         else
         {
             std :: cout << "\nVenue doesn't exist.\nTry Again.";
         }  
     }
+    
+    std :: cout << "reached 2";
+    page_2(user);
+    std :: cout << "reached 3";
 }
 
 bool isDigits(const std :: string &str) 
@@ -85,7 +99,7 @@ bool isDigits(const std :: string &str)
 
 std :: map <std :: string, Conference*> :: iterator getConference(int n = 10)
 {
-    int i = 0;
+    int i = 1;
     while (true)
     {
         auto it = Conference :: conferenceMap.begin();
@@ -93,7 +107,7 @@ std :: map <std :: string, Conference*> :: iterator getConference(int n = 10)
         size_t i = 0;
         while (true)
         {
-            while (i < n - 1 && i < size)
+            while (i <= n - 1 && i < size)
             {
                 std :: cout << i << "." << it -> first << "\n";
                 ++ i;
@@ -138,15 +152,15 @@ std :: map <std :: string, Conference*> :: iterator getConference(int n = 10)
 
 void page_2(User &user)
 {
-    std :: cout << "\n\t\tMAIN MENU";
-    std :: cout << "\n1. Explore Conferences"; 
-    std :: cout << "\n2. Create Conference";
-    std :: cout << "\n3. Exit";
-    int resp;
-    std :: cout << "\n: ";
-    std :: cin >> resp;
     while (true)
     {
+        std :: cout << "\n\t\tMAIN MENU";
+        std :: cout << "\n1. Explore Conferences"; 
+        std :: cout << "\n2. Create Conference";
+        std :: cout << "\n3. Exit";
+        int resp;
+        std :: cout << "\n: ";
+        std :: cin >> resp;
         switch(resp)
         {
             case 1:
@@ -179,7 +193,7 @@ void exploreConferences(User &user)
     {
         case 1:
         {
-            std :: unique_ptr<Participant> participant = std :: make_unique<Participant>(user);
+            Participant* participant = new Participant(user);
             choice = 'y';
             do
             {
@@ -195,7 +209,7 @@ void exploreConferences(User &user)
         case 2:
         {
             // Code to organise the conference
-            std :: unique_ptr<Organiser> organiser = std :: make_unique<Organiser>(user);
+            Organiser* organiser = new Organiser(user);
             choice = 'y';
             do
             {
@@ -211,7 +225,7 @@ void exploreConferences(User &user)
         case 3:
         {
             // Code to sponsor the conference
-            std :: unique_ptr<Sponsor> sponsor = std :: make_unique<Sponsor>(user);
+            Sponsor* sponsor = new Sponsor(user);
             choice = 'y';
             do
             {
@@ -234,6 +248,7 @@ void exploreConferences(User &user)
             std::cout << "\nInvalid choice. Please try again.\n";
         }
     }
+    page_2(user);
 }
 
 
@@ -272,8 +287,7 @@ void sign_up()
     std::cin >> email;
 
     // Create a new User and add it to the userMap
-    std :: make_unique<User>(name, age, regNO, gender, username, password, email);
-
+    User(name, age, regNO, gender, username, password, email); 
     std :: cout << "\nSigned up successfully.\n\n";
     page_1();
 }
@@ -300,6 +314,7 @@ void sign_in()
         {
             std::cout << "\nInvalid username or password.";
         }
+        
     }
 }
 
@@ -307,6 +322,8 @@ void sign_in()
 
 void page_1()
 {
+    while (true)
+    {
     std :: cout << "\n\n\t\tMAIN MENU\n";
     std :: cout << "\n1. Sign-In\n";
     std :: cout << "\n2. Sign-Up\n";
@@ -314,7 +331,6 @@ void page_1()
     int resp;
     std :: cout << "\n: ";
     std :: cin >> resp;
-    while (true)
         switch(resp)
         {
             case 1:
@@ -324,10 +340,11 @@ void page_1()
                 sign_up();
                 break;
             case 3:
-                exit(0);
+                deleteAllExit();
             default:
                 std :: cout << "Invalid response\n";
         }
+    }
 }
 // @ <lengthy moderately tough task> implementation of the "<-" to go back to everything
 // in the ui each time to use it. for example if you go from page 1 to page 2, typing "<-"
@@ -336,7 +353,10 @@ void page_1()
 // 
 int main(void)
 {
+    Venue :: addVenue("Anna Auditorium");
+    Venue :: addVenue("1");
     page_1();
+    deleteAllExit();
 
     return 0;
 }

@@ -17,6 +17,10 @@ class DateTime
             // @1 make a getDay function to getDay from day and time
         }
 
+        DateTime(const DateTime& other)
+        : date_(other.date_), time_(other.time_), day_(other.day_){}
+        // Copy constructor for DateTime
+
         DateTime(std :: string date, std :: string time){}
 
         std :: string displayDate(std :: string format)
@@ -74,7 +78,6 @@ class Venue
                 if (placeList_[i] == venue_name) 
                 {
                     venue_name_ = venue_name;
-                    std :: cout << "\nVenue Found";
                     std :: cout << "\nVenue Chosen Successfully.";
                 }
             }
@@ -207,14 +210,14 @@ class Conference
         // }
 
         // Constructor
-        Conference(DateTime datetime, Venue venue, Organiser* organiser) : datetime_(datetime), venue_(venue), generated_amt_(0.0), conference_id_(init_id), name_(), organisers_({organiser})
+        Conference(std :: string name, DateTime datetime, Venue venue, Organiser* organiser) : name_(name), datetime_(datetime), venue_(venue), generated_amt_(0.0), conference_id_(init_id), organisers_({organiser})
         {
             // Add this Conference instance to the map
             conferenceMap[name_] = this;
             init_id ++;
 
         }
-        
+        ~Conference();     
 
         // Method to get Conference instance by name
         static Conference* getConferenceByName(const std :: string& name) 
@@ -241,7 +244,7 @@ class Conference
 
         static void showAvailableTimeSlots(Venue& venue) // @ Change this so that it accesses the slot from conference and shows the rest only 
         {
-            std :: cout << "Available Time Slots:" << std :: endl;
+            std :: cout << "\nAvailable Time Slots:" << std :: endl;
             std :: cout << "1. 8:00 AM - 10:00 AM" << std :: endl;
             std :: cout << "2. 10:00 AM - 12:00 PM" << std :: endl;
             std :: cout << "3. 2:00 PM - 5:00 PM" << std :: endl;
@@ -272,6 +275,15 @@ class Conference
             return sponsors_;
         }
 
+        static void deleteAllConferences()
+        {
+            
+            for (const auto& it : conferenceMap)
+            {
+                delete it.second;
+            }
+            conferenceMap.clear();
+        }
         // @ make a getConferenceMap() static function that returns the conferenceMap and make the actual property conferenceMap private
 
 };
@@ -300,6 +312,12 @@ class User
             userMap[username] = this;
         }
 
+        User(const User& other)
+            : name(other.name), age(other.age), regNO(other.regNO), gender(other.gender),
+              username(other.username), password(other.password), email(other.email) 
+        {
+            userMap[username] = this;
+        }
         // Default Constructor
         // User() {}; 
         // This implementation must be removed
@@ -309,12 +327,12 @@ class User
         {
             if (userMap.find(username) != userMap.end()) 
             {
-                std :: cout << "User Found";
+                std :: cout << "\nUser Found\n";
                 return userMap[username];
             }
             else 
             {
-                std :: cout << "User Not Found";
+                std :: cout << "\nUser Not Found\n";
                 return nullptr;
             }
         }
@@ -363,7 +381,14 @@ class User
         {
             password = newPassword;
         }
-
+        static void deleteAllUsers()
+        {
+            for (auto& it : userMap)
+            {
+                delete it.second;
+            }
+            userMap.clear();
+        }
         // More functions like updateName, updateAge, etc. can be added similarly
 };
 
@@ -415,7 +440,20 @@ class Participant: public User
         // copy constructor should be the only way to init
         Participant(const User& user) : User(user){};
 
-        ~Participant(){};
+        ~Participant()
+        {
+            for (Conference* conference_ : scheduledConferences_)
+            {
+                delete conference_;
+            }
+            for (DateTime* datetime_ : scheduledDateTimes_)
+            {
+                delete datetime_;
+            }
+            scheduledConferences_.clear();
+            scheduledDateTimes_.clear();
+        };
+
         // friend void registerParticipant(Conference* conference, Participant* participant);
         void scheduleConference(Conference *conference)
         {
@@ -429,7 +467,7 @@ class Participant: public User
                     return;
                 }
             }
-            std :: unique_ptr<DateTime> newDateTime = std :: make_unique<DateTime> (conference -> getDateTime());
+            DateTime* newDateTime = new DateTime(conference -> getDateTime());
             scheduledConferences_.push_back(conference);
             scheduledDateTimes_.push_back(newDateTime);
             
@@ -458,7 +496,7 @@ class Participant: public User
 
         void showTimes(/*std :: string format*/)
         {
-            for (DateTime *datetime_ : scheduledDateTimes_)
+            for (DateTime* datetime_ : scheduledDateTimes_)
             {
                 std :: cout << "\n" << datetime_ -> displayDate("DD-MM-YYYY"/*format1*/) << datetime_ -> displayTime(/*format2*/);
             }
@@ -512,9 +550,28 @@ class Sponsor : public User {
             return amount_;
         } 
 };
+Conference :: ~Conference()
+{
+    for (Organiser* organiser : organisers_) 
+    {
+        delete organiser;
+    }
+    organisers_.clear();
 
+    for (Participant* participant : participants_)
+    {
+        delete participant;
+    }
+    participants_.clear();
+
+    for (Sponsor* sponsor : sponsors_) 
+    {
+        delete sponsor;
+    }
+    sponsors_.clear();
+}   
 // @ add more venues since we havent implemented flle handling for now
-std :: string Venue :: placeList_[MAX_VENUES_] = {"Anna Auditorium", "Foodies"};
+std :: string Venue :: placeList_[Venue :: MAX_VENUES_];
 int Venue :: numVenues_ = 0;
 std :: map<std::string, User*> User::userMap;
 std :: map <std :: string, Conference*> Conference :: conferenceMap;
