@@ -517,7 +517,7 @@ class Sponsor : public User {
         std::string username, std::string password, std::string email, std :: string event, double amt) 
         : User(name, age, regNO, gender, username, password, email),
         sponsored_event_(event), amount_(amt) {};
-        Sponsor(User &user) : User(user), amount_(0.0){};
+        Sponsor(std :: string sponsored_event, User &user) : sponsored_event_(sponsored_event), User(user), amount_(0.0){};
 
         std :: string getEventName(){return sponsored_event_;}
 
