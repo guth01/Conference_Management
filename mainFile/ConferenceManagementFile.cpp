@@ -59,14 +59,13 @@ void createConferences(User& user)
             DateTime datetime(date, timeSlot);
             if (Conference :: isTimeSlotAvailable(datetime, venue))
             {
-                std :: cout << "\nSlot Available.\nSlot booked successfully.";
+                std :: cout << "\nSlot Available.\nSlot booked successfully.\n";
                 Organiser* organiser = new Organiser(user);
 
                 std :: string conference_name;
-                std :: cout << "Enter the name of the coneference : ";
+                std :: cout << "\nEnter the name of the conference : ";
                 std :: cin >> conference_name;
                 Conference conference(conference_name, datetime, venue, organiser);
-                std :: cout << "reached 1";
                 break;
             }
             else 
@@ -79,10 +78,7 @@ void createConferences(User& user)
             std :: cout << "\nVenue doesn't exist.\nTry Again.";
         }  
     }
-    
-    std :: cout << "reached 2";
     page_2(user);
-    std :: cout << "reached 3";
 }
 
 bool isDigits(const std :: string &str) 
@@ -99,17 +95,23 @@ bool isDigits(const std :: string &str)
 
 std :: map <std :: string, Conference*> :: iterator getConference(int n = 10)
 {
-    int i = 1;
     while (true)
     {
-        auto it = Conference :: conferenceMap.begin();
-        size_t size = Conference :: conferenceMap.size();
+        std :: map <std :: string, Conference*> conferenceMap = Conference :: getConferenceMap();
+        auto it = conferenceMap.begin();
+        size_t size = conferenceMap.size();
+        // if (size == 0)
+        // {
+        //     std :: cout << "\nNo conferences created.\n";
+        //     return;
+        // } @ decide on this and fix
         size_t i = 0;
+        std :: cout << "\n";
         while (true)
         {
-            while (i <= n - 1 && i < size)
+            while (i < n - 1 && i < size)
             {
-                std :: cout << i << "." << it -> first << "\n";
+                std :: cout << i + 1 << "." << it -> first << "\n";
                 ++ i;
                 ++ it;
             }
@@ -118,10 +120,11 @@ std :: map <std :: string, Conference*> :: iterator getConference(int n = 10)
             std :: string resp;
             std :: cin >> resp;
             std :: cout << "\n";
+            // @ create code to check for things like if resp was less than 1 or more than 10
 
             if (isDigits(resp))
             {
-                std :: advance(it, n - 1);
+                std :: advance(it, std :: stoi(resp) - 10);
                 return it;
             }
             else if (resp == "next")
@@ -146,7 +149,6 @@ std :: map <std :: string, Conference*> :: iterator getConference(int n = 10)
                 }
             }
         }
-
     }
 }
 
@@ -161,6 +163,7 @@ void page_2(User &user)
         int resp;
         std :: cout << "\n: ";
         std :: cin >> resp;
+        std :: cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n');
         switch(resp)
         {
             case 1:
@@ -181,6 +184,7 @@ void page_2(User &user)
 
 void exploreConferences(User &user)
 {
+    std :: cout << "\n\t\tExplore Conferences\n";
     std :: cout << "\n1. Join";
     std :: cout << "\n2. Organise";
     std :: cout << "\n3. Sponsor";
@@ -202,6 +206,7 @@ void exploreConferences(User &user)
                 participant -> scheduleConference(it -> second);
                 std :: cout << "\nSchedule More? [y / any key]: ";
                 std :: cin >> choice;
+                std :: cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n');
             }
             while (choice == 'y');
             break;
@@ -218,6 +223,7 @@ void exploreConferences(User &user)
                 organiser -> organiseConference(it -> second);
                 std :: cout << "\nOrganise More? [y / any key]: ";
                 std :: cin >> choice;
+                std :: cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n');
             }
             while (choice == 'y');
             break;
@@ -234,6 +240,7 @@ void exploreConferences(User &user)
                 sponsor -> sponsorConference();
                 std :: cout << "\nSponsor More? [y / any key]: ";
                 std :: cin >> choice;
+                std :: cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n');
             }
             while (choice == 'y');
             break;
@@ -250,7 +257,6 @@ void exploreConferences(User &user)
     }
     page_2(user);
 }
-
 
 void sign_up()
 {
@@ -331,6 +337,7 @@ void page_1()
     int resp;
     std :: cout << "\n: ";
     std :: cin >> resp;
+    std :: cin.ignore(std  :: numeric_limits<std :: streamsize> :: max(), '\n');
         switch(resp)
         {
             case 1:

@@ -196,14 +196,14 @@ class Conference
         std :: vector <Organiser*> organisers_;
         std :: vector <Participant*> participants_;
         std :: vector <Sponsor*> sponsors_;
-        double generated_amt_;
+        double generated_amt_ = 0.0;
         int conference_id_;
         std :: string name_;
+        static int init_id;
+        static int no_of_conferences;
+        static std :: map <std :: string, Conference*> conferenceMap;
 
     public:
-        static int init_id;
-        static std :: map <std :: string, Conference*> conferenceMap;
-        static int no_of_conferences;
         // void registerParticipant(Conference* conference, Participant* participant)
         // {
         //     conference -> participants_.push_back(participant);
@@ -242,6 +242,10 @@ class Conference
             return datetime_;
         }
 
+        static std :: map <std :: string, Conference*> getConferenceMap()
+        {
+            return conferenceMap;
+        }
         static void showAvailableTimeSlots(Venue& venue) // @ Change this so that it accesses the slot from conference and shows the rest only 
         {
             std :: cout << "\nAvailable Time Slots:" << std :: endl;
@@ -528,11 +532,13 @@ class Sponsor : public User {
             double sponsored_amount;
             std :: cout << "\nEnter the amount to sponsor: ";
             std :: cin >> sponsored_amount;
+            std :: cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n');
             Conference* conference = Conference :: getConferenceByName(sponsored_event_);
             
             for (Sponsor* sponsor : conference -> getSponsors()) 
             {
-                if (sponsor == this) {
+                if (sponsor == this) 
+                {
                     // Conference already sponsored, update sponsorship amount
 
                     conference -> updateSponsoredAmount(sponsored_amount, amount_);
@@ -576,3 +582,4 @@ int Venue :: numVenues_ = 0;
 std :: map<std::string, User*> User::userMap;
 std :: map <std :: string, Conference*> Conference :: conferenceMap;
 int Conference :: init_id = 1000;
+int Conference :: no_of_conferences = 0;
