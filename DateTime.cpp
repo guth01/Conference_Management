@@ -1,35 +1,26 @@
-#include <iostream>
 #include <string>
+#include <sstream>
+#include <chrono>
+#include <format>
 
-class DateTime
-{
-    private:
-        std :: string date;
-        std :: string time;
-        std :: string day;
+class DateTime {
+private:
+    std::string date_;  // The date in MM-DD-YYYY format
+    std::string time_;  // The time in HH:MM:SS format
+    std::string day_;   // The day of the week
 
-    public:
-        DateTime() : date("12-03-2005"), time("13:00:00"), day("Sunday")
-        {
-            // constructor for sample purpose only
-        }
-        std :: string displayDate(std :: string format)
-        {
-            if (format == "HHHH")
-            {
-                return day;
-            }
-            else if (format == "MM-DD-YYYY")
-            {
-                return (date.substr(3, 4) + '-' + date.substr(0, 1) + '-' + date.substr(6, 9));
-            }
-            else if (format == "DD-MM-YYYY")
-            {
-                return (date.substr(0, 1) + '-' + date.substr(3, 4) + '-' + date.substr(6, 9));
-            }
-            else
-            {
-                throw std :: invalid_argument("Error: Not a valid Date Format\n");
-            }
-        }
+public:
+    
+    DateTime();                                         // Default constructor: Initializes date_ and time_ to default values
+    DateTime(const DateTime& other);                    // Copy constructor: Initializes a new DateTime object with the same date, time, and day 
+                                                        // as another DateTime object
+    DateTime(std::string date, std::string time);       // Constructor: Initializes date_ and time_ with the given arguments
+
+    std::string getDay() const;                         // Member function: Returns the day of the week for the date_
+    std::string displayDate(std::string format);        // Member function: Returns the date_ in the specified format
+    std::string displayTime();                          // Member function: Returns the time_
+
+    static bool checkDateTime(std::string& date_, std::string& timeSlot_);  // Static member function: Checks if the given date and time are valid
+    bool operator==(const DateTime& other) const;                           // Operator overload: Compares this DateTime object with 
+                                                                            // another based on date_ and time_
 };
