@@ -191,7 +191,7 @@ void page_2(User &user)
                 createConferences(user);
                 break;
             case 3:
-            if (bool isOrganizer(User& user)==true)
+            if (bool isOrganizer()==true)
                 orgportal(User& user);
             else
                 std::cout<<"You are not registered as an organiser and consequently doesn't have access to the organiser portal";
@@ -204,28 +204,16 @@ void page_2(User &user)
         }
     }
 }
-bool isOrganizer(User& user) {
-    char response;
-    std::cout << "Are you an organizer? (y/n): ";
-    std::cin >> response;
 
-    if (response == 'y' || response == 'Y') {
-        return true;
-    } else if (response == 'n' || response == 'N') {
-        return false;
-    } else {
-        std::cout << "Invalid input. Please enter 'y' or 'n'." << std::endl;
-        // Recursive call to handle invalid input
-        return isOrganizer(user);
-    }
+    
 }
-void orgportal(User &user)
+void OrgPortal(User &user)
 {
     while (true)
     {
-         displayConference();
+        displayConference();
         std::cout << "\n";
-        std::cout << "\n1. Edit Conference";
+        std::cout << "\n1. Venue manipulation";
         std::cout << "\n2. Remove Conference";
         std::cout << "\n3. Back to main menu";
         std::cout << "\nEnter your choice (1-3): ";
@@ -296,9 +284,6 @@ void orgportal(User &user)
         }
     }
 }
-
-
-
 
 void exploreConferences(User &user)
 {
