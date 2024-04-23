@@ -4,6 +4,10 @@
 #include <map>
 #include <limits>
 #include <memory>
+
+#include <sstream>
+#include <iomanip>
+#include <ctime>
 class DateTime
 {
     private:
@@ -11,17 +15,39 @@ class DateTime
         std :: string time_;
         std :: string day_;
 
-    public:
-        DateTime() : date_("00-00-0000"), time_("00:00:00"), day_("")
+        std::string getDay() const 
         {
-            // @1 make a getDay function to getDay from day and time
+            const char* date_cstr = date_.c_str();
+            // Parse the date
+            std :: istringstream ss(date_cstr);
+            std :: tm tm = {};
+            ss >> std :: get_time(&tm, "%m-%d-%Y");
+
+            // Convert to time_t
+            std::time_t time = std::mktime(&tm);
+
+            // Get the day of the week
+            char buffer[10];
+            std::strftime(buffer, 10, "%A", std::localtime(&time));
+
+            // Convert to string
+            return std::string(buffer);
         }
+
+    public:
+        // DateTime() : date_("00-00-0000"), time_("00:00:00")
+        // {
+        //     day_ = getDay();
+        // }
 
         DateTime(const DateTime& other)
         : date_(other.date_), time_(other.time_), day_(other.day_){}
         // Copy constructor for DateTime
 
-        DateTime(std :: string date, std :: string time){}
+        DateTime(std :: string date, std :: string time) : date_(date), time_(time)
+        {
+            day_ = getDay();
+        }
 
         std :: string displayDate(std :: string format)
         {
@@ -56,7 +82,10 @@ class DateTime
             // @3 define this
         }
 
-        //@4 operator overloading of ==
+        bool operator == (const DateTime& other) const 
+        {
+            return date_ == other.date_ && time_ == other.time_;
+        }
 
 };
 
@@ -173,9 +202,9 @@ class Venue
             }
             return false; // Venue not found
         }
-        bool operator == (const Venue& v)
+        bool operator == (const Venue& other)
         {
-            return this -> venue_name_ == v.venue_name_;
+            return this -> venue_name_ == other.venue_name_;
         }
 
 };
@@ -288,7 +317,6 @@ class Conference
             }
             conferenceMap.clear();
         }
-        // @ make a getConferenceMap() static function that returns the conferenceMap and make the actual property conferenceMap private
 
 };
 
@@ -306,6 +334,7 @@ class User
 
     public:
         static std :: map<std::string, User*> userMap;
+
         // Constructor
         User
         (std :: string name, short int age, std :: string regNO, std :: string gender, 
@@ -340,6 +369,7 @@ class User
                 return nullptr;
             }
         }
+
         // Getters and Setters
         void setName(std :: string n) { name = n; }
         std :: string getName() const { return name; }
@@ -406,11 +436,11 @@ class Organiser : public User
         // Constructor
         // Organiser(){};
         Organiser(const User& user) : User(user){};
-        Organiser(std::string name, short int age, std::string regNO, std::string gender,
-                std::string username, std::string password, std::string email,
-                std::string orgName, std::string title)
-                : User(name, age, regNO, gender, username, password, email),
-                organisationName(orgName), organiserTitle(title) {}
+        // Organiser(std::string name, short int age, std::string regNO, std::string gender,
+        //         std::string username, std::string password, std::string email,
+        //         std::string orgName, std::string title)
+        //         : User(name, age, regNO, gender, username, password, email),
+        //         organisationName(orgName), organiserTitle(title) {}
 
         // Getters and Setters
         void setOrganisationName(std::string orgName) { organisationName = orgName; }

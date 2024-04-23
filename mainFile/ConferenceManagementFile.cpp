@@ -24,11 +24,11 @@ void createConferences(User& user)
     getline(std :: cin, name);
     std :: cout << "\n\n\n";
 
-    Venue :: showVenues();
-    std :: cout << "\n\n";
 
     while (true)
     {
+        Venue :: showVenues();
+        std :: cout << "\n\n";
         std :: cout << "\nEnter the name of the venue: ";
         getline(std :: cin, venue_name);
         Venue venue(venue_name);
@@ -73,7 +73,15 @@ void createConferences(User& user)
         }
         else
         {
-            std :: cout << "\nVenue doesn't exist.\nTry Again.";
+            std :: cout << "\nVenue doesn't exist.\nAdd to Venues?[y / any key]";
+            std :: string resp;
+            std :: cin >> resp;
+            std :: cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n');
+            std :: cout << "Enter the name of the new venue to be added: ";
+            std :: cin >> resp;
+            std :: cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n');
+            Venue :: addVenue(resp);
+            std :: cout << "Venue added to list.\n\n";
         }  
     }
     page_2(user);
@@ -118,11 +126,18 @@ std :: map <std :: string, Conference*> :: iterator getConference(int n = 10)
         std :: cin >> resp;
         std :: cin.ignore(std :: numeric_limits<std :: streamsize> :: max(), '\n');
         std :: cout << "\n";
-        // @ create code to check for things like if resp was less than 1 or more than 10
+
 
         if (isDigits(resp))
         {
-            std :: advance(it, std :: stoi(resp) - 10);
+            int num = std :: stoi(resp);
+            // @ create code to check for things like if resp was less than 1 or more than 10
+            if (num < 0 || num > 10)
+            {
+                std :: cout << "\nInvalid Input.\nTry Again.\n";
+                continue;
+            }
+            std :: advance(it, num - 10);
             return it;
         }
         else if (resp == "next")
@@ -175,7 +190,6 @@ void page_2(User &user)
                 break;
             case 3:
                 deleteAllExit();
-               
             default:
                 std :: cout << "\nInvalid response\n";
 
@@ -328,14 +342,14 @@ void page_1()
 {
     while (true)
     {
-    std :: cout << "\n\n\t\tMAIN MENU\n";
-    std :: cout << "\n1. Sign-In\n";
-    std :: cout << "\n2. Sign-Up\n";
-    std :: cout << "\n3. Exit\n";
-    int resp;
-    std :: cout << "\n: ";
-    std :: cin >> resp;
-    std :: cin.ignore(std  :: numeric_limits<std :: streamsize> :: max(), '\n');
+        std :: cout << "\n\n\t\tMAIN MENU\n";
+        std :: cout << "\n1. Sign-In\n";
+        std :: cout << "\n2. Sign-Up\n";
+        std :: cout << "\n3. Exit\n";
+        int resp;
+        std :: cout << "\n: ";
+        std :: cin >> resp;
+        std :: cin.ignore(std  :: numeric_limits<std :: streamsize> :: max(), '\n');
         switch(resp)
         {
             case 1:
